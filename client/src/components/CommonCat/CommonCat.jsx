@@ -14,9 +14,9 @@ const categories = [
 export function CommonCat() {
   // Helper: get size class based on string length
   const getSizeClass = (text) => {
-    if (text.length > 10) return "size-b";
-    if (text.length >= 6) return "size-a";
-    return "size-c";
+    if (text.length > 10) return "size-c";
+    if (text.length >= 6) return "size-b";
+    return "size-a";
   };
 
   return (

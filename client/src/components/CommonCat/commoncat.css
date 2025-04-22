@@ -33,7 +33,6 @@
   border: 2px solid black;
   text-align: center;
   font-size: 1rem;
-  padding: 10px;
   word-break: break-word;
   cursor: pointer;
   transition: all 0.8s;
@@ -45,19 +44,18 @@
   color: white;
 }
 
-/* Bento size variants (tweak as needed) */
 .size-a {
-  grid-column: span 2;
+  grid-column: span 1;
   grid-row: span 1;
 }
 
 .size-b {
-  grid-column: span 3;
+  grid-column: span 2;
   grid-row: span 1;
 }
 
 .size-c {
-  grid-column: span 1;
+  grid-column: span 3;
   grid-row: span 1;
 }
 
