@@ -1,6 +1,6 @@
 import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
 import { CommonCat } from "../../components/CommonCat/CommonCat";
-import { Hero } from "../../sections/LPSections/Hero/Hero";
+import { Hero } from "../../sections/HeroSection/Hero";
 
 function LandingPage() {
   return (
