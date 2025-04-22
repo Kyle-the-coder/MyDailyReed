@@ -5,7 +5,7 @@ import "./blogscontainer.css";
 
 export function BlogsContainer({ isVertical = false, title }) {
   return (
-    <section className="main-page">
+    <section className="display-column">
       <div className="title-container">
         <h1 className="outfit-font">{title}</h1>
         <div className="line"></div>
