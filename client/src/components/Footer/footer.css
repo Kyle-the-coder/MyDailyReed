@@ -56,7 +56,7 @@
 }
 
 .footer-contact {
-  width: 15%;
+  width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,4 +93,32 @@
   bottom: 5%;
   right: 1%;
   cursor: pointer;
+}
+@media only screen and (max-width: 800px) {
+  .footer-main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-logo-signup {
+    margin-top: 50px;
+  }
+  .footer-contact {
+    width: 50%;
+    margin-top: 50px;
+  }
+
+  .footer-blerb {
+    width: 100%;
+    text-align: center;
+    margin-top: 70px;
+  }
+  .footer-blerb h3 {
+    font-size: 2.3rem;
+  }
+  .footer-newsletter {
+    margin-top: 50px;
+  }
+  .to-top-button {
+    top: 2%;
+  }
 }
