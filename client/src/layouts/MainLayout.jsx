@@ -1,6 +1,7 @@
 import { Outlet, useLocation, useNavigation } from "react-router-dom";
 import { Nav } from "../components/Nav/Nav";
-// import { Contact } from "../components/Contact/Contact";
+import { Footer } from "../components/Footer/Footer";
+
 import "../styles/main.css";
 export function MainLayout() {
   const { state } = useNavigation();
@@ -15,7 +16,7 @@ export function MainLayout() {
           <Outlet />
         </div>
       )}
-      {/* <Contact /> */}
+      <Footer />
     </div>
   );
 }

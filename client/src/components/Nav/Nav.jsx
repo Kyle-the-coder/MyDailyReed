@@ -22,7 +22,7 @@ export function Nav() {
     { linkName: "Home", link: "/" },
     { linkName: "About", link: "/about" },
     { linkName: "Blogs", link: "/blogs" },
-    { linkName: "Contact", link: "#contact" },
+    { linkName: "Contact", link: "#footer" },
   ];
 
   const handleMouseEnter = useCallback((index) => {
@@ -71,7 +71,7 @@ export function Nav() {
 
   function handleScrollTo(link) {
     if (isHamburgerActive) {
-      if (link === "#contact") {
+      if (link === "#footer") {
         handleActivateHamburger();
         setTimeout(() => {
           scrollToSection(link);
@@ -81,7 +81,7 @@ export function Nav() {
         handleActivateHamburger();
       }
     } else {
-      if (link === "#contact") {
+      if (link === "#footer") {
         scrollToSection(link);
       } else {
         navigate(link);

@@ -1,0 +1,9 @@
+.word-button {
+  width: fit-content;
+  border-radius: 50px;
+  padding: 8px 30px;
+  display: flex;
+  border: none;
+  justify-content: center;
+  align-items: center;
+}
