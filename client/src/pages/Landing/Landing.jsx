@@ -1,4 +1,5 @@
 import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
+import { CommonCat } from "../../components/CommonCat/CommonCat";
 import { Hero } from "../../sections/LPSections/Hero/Hero";
 
 function LandingPage() {
@@ -9,7 +10,8 @@ function LandingPage() {
       {/* Component: */}
       <BlogsContainer title="Latest" isVertical={false} />
       <BlogsContainer title="Trending" isVertical={false} />
-      {/* Section: */}
+      {/* Component: */}
+      <CommonCat />
     </div>
   );
 }

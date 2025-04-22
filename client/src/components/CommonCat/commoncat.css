@@ -1,0 +1,78 @@
+.common-cat-container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  padding: 40px 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  border-top: 3px solid black;
+}
+
+.common-cat-container h1 {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2rem, 3.5vw, 5rem);
+}
+.category-bento-container {
+  width: 60%;
+  height: 90%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* More columns = more flexibility */
+  grid-auto-rows: 60px;
+  gap: 20px;
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  border: 2px solid black;
+  text-align: center;
+  font-size: 1rem;
+  padding: 10px;
+  word-break: break-word;
+  cursor: pointer;
+  transition: all 0.8s;
+  font-size: clamp(1rem, 1.8vw, 2rem);
+}
+
+.category:hover {
+  background-color: #656565;
+  color: white;
+}
+
+/* Bento size variants (tweak as needed) */
+.size-a {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.size-b {
+  grid-column: span 3;
+  grid-row: span 1;
+}
+
+.size-c {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+@media (max-width: 800px) {
+  .common-cat-container {
+    flex-direction: column;
+    padding: 40px;
+  }
+
+  .common-cat-container h1 {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .category-bento-container {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

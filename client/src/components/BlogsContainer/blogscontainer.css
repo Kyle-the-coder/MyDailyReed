@@ -1,6 +1,6 @@
 .title-container {
   width: 100%;
-  padding: 20px;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,19 +40,10 @@
   padding: 20px 20px;
 }
 
-/* Horizontal layout: 4 columns in a row */
 .blog-column-container.horizontal {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-/* Vertical layout: 1 column per row */
 .blog-column-container.vertical {
   grid-template-columns: 1fr;
-}
-
-/* Optional: make it responsive by stacking on small screens */
-@media (max-width: 768px) {
-  .blog-column-container.horizontal {
-    grid-template-columns: 1fr;
-  }
 }
