@@ -1,11 +1,12 @@
+import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
 import { Hero } from "../../sections/LPSections/Hero/Hero";
-import { LatestBlogs } from "../../sections/LPSections/LatestBlogs/LatestBlogs";
 
 function LandingPage() {
   return (
     <div className="main-page">
       <Hero />
-      <LatestBlogs />
+      <BlogsContainer title="Latest" isVertical={false} />
+      <BlogsContainer title="Trending" isVertical={false} />
     </div>
   );
 }
