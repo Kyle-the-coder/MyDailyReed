@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import heroBg from "../../assets/heroImg/MDRHeroBg2.png";
 import heroBgMobile from "../../assets/heroImg/MDRHeroBgPhone.png";
 import "./hero.css";
+import { WordButton } from "../../components/Buttons/WordButton/WordButton";
 
 export function Hero() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -22,12 +23,19 @@ export function Hero() {
           <h1 className="playfair-font green-text">My</h1>
           <h1 className="playfair-font green-text">Daily</h1>
           <h1 className="playfair-font green-text">Reed</h1>
+          <WordButton text="See Blogs" />
         </>
       ) : (
         <>
           <img src={heroBg} /> <h1 className="playfair-font green-text">My</h1>
           <h1 className="playfair-font green-text">Daily</h1>
-          <h1 className="playfair-font green-text">Reed</h1>
+          <h1
+            style={{ marginBottom: "10px" }}
+            className="playfair-font green-text"
+          >
+            Reed
+          </h1>
+          <WordButton text="See Blogs" />
         </>
       )}
     </section>

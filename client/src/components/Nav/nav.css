@@ -2,11 +2,11 @@
   width: 100%;
   height: 300px;
   padding: 20px;
-  background-color: #181818;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   z-index: 9;
+  position: relative;
 }
 
 .quick-search-container {
@@ -35,8 +35,10 @@
 
 .logo-links {
   width: 550px;
-  height: 100%;
-
+  height: 85%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

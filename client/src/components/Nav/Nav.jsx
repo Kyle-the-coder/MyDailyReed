@@ -103,7 +103,7 @@ export function Nav() {
   }, [isHamburgerActive]);
 
   return (
-    <nav id="nav" className="nav-main-container">
+    <nav id="nav" className="nav-main-container charcoal-bg">
       {windowWidth <= 800 ? (
         <>
           <div className="logo-ham-container">

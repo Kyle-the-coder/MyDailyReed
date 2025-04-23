@@ -1,0 +1,12 @@
+.about-title-main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.about-title-main-container img {
+  width: 50%;
+}
