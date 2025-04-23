@@ -7,8 +7,8 @@ function LandingPage() {
       {/* Section: */}
       <Hero />
       {/* Component: */}
-      <BlogsContainer title="Latest" isVertical={false} />
-      <BlogsContainer title="Trending" isVertical={false} />
+      <BlogsContainer title="Latest" isVertical={false} marginBottom="40px" />
+      <BlogsContainer title="Trending" isVertical={false} marginBottom="40px" />
     </div>
   );
 }

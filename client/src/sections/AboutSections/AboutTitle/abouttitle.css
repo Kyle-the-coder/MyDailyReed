@@ -16,3 +16,14 @@
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
+@media (max-width: 800px) {
+  .about-title-main-container {
+    padding: 40px 20px;
+    margin-top: -1px;
+  }
+
+  .about-title-main-container h1 {
+    text-align: center;
+  }
+}
