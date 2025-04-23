@@ -32,8 +32,8 @@ body {
   src: url("./Outfit-VariableFont_wght.ttf") format("truetype");
 }
 @font-face {
-  font-family: "Playfair Custom";
-  src: url("/fonts/Playfair-VariableFont_opsz,wdth,wght.woff2") format("woff2");
+  font-family: "Playfair";
+  src: url("./Playfair-VariableFont_opsz,wdth,wght.woff2") format("woff2");
   font-weight: 1 999;
   font-stretch: 75% 125%;
   font-style: normal;
@@ -48,6 +48,7 @@ body {
 
 .playfair-font {
   font-family: "Playfair";
+  font-weight: 800;
 }
 .playfair-thin-font {
   font-family: "Playfair";
