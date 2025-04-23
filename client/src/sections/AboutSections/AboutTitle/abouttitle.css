@@ -5,8 +5,14 @@
   align-items: center;
   justify-content: center;
   color: white;
+  padding: 40px;
+}
+.about-title-main-container h1 {
+  font-size: clamp(2rem, 3vw, 4rem);
 }
 
 .about-title-main-container img {
   width: 50%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
