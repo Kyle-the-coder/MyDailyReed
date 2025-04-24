@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import articleImg from "../../assets/placeholders/Artc1.png";
 import articleImg2 from "../../assets/placeholders/Artc2.jpg";
 import articleImg3 from "../../assets/placeholders/Artc3.jpg";
@@ -9,6 +10,7 @@ export function BlogsContainer({
   height,
   marginBottom,
 }) {
+  const navigate = useNavigate();
   return (
     <section className="display-column">
       <div className="title-container">
@@ -20,6 +22,7 @@ export function BlogsContainer({
         className={`blog-column-container ${
           isVertical ? "vertical" : "horizontal"
         }`}
+        onClick={() => navigate("/singleBlog")}
       >
         {[articleImg, articleImg2, articleImg3, articleImg].map(
           (img, index) => (

@@ -37,6 +37,7 @@
   width: 100%;
   display: grid;
   gap: 10px;
+  cursor: pointer;
   padding: 20px 20px;
 }
 
