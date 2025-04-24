@@ -17,7 +17,7 @@ export function Hero() {
 
   return (
     <section className="hero-main-container">
-      {windowWidth <= 800 ? (
+      {windowWidth <= 600 ? (
         <>
           <img src={heroBgMobile} />
           <h1 className="playfair-font green-text">My</h1>

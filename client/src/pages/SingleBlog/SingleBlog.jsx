@@ -1,7 +1,13 @@
+import { useEffect } from "react";
+import { SbTitle } from "../../sections/SingleBlogSections/SbTitle/SbTitle";
+import { scrollToSection } from "../../components/SmoothScroll";
+import { SbArticle } from "../../sections/SingleBlogSections/SbArticle/SbArticle";
+
 function SingleBlog() {
   return (
-    <section className="display-column">
-      <h1>Single Blog</h1>
+    <section id="single-blog" className="display-column">
+      <SbTitle />
+      <SbArticle />
     </section>
   );
 }

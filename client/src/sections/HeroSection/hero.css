@@ -8,6 +8,7 @@
   position: relative;
   overflow: hidden;
   padding: 5%;
+  margin-top: -1px;
 }
 
 .hero-main-container img {
@@ -26,7 +27,7 @@
   font-size: clamp(10rem, 12vw, 12rem);
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
   .hero-main-container {
     align-items: center;
     justify-content: flex-start;

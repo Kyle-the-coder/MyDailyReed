@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+
 import articleImg from "../../assets/placeholders/Artc1.png";
 import articleImg2 from "../../assets/placeholders/Artc2.jpg";
 import articleImg3 from "../../assets/placeholders/Artc3.jpg";
+import { scrollToSection } from "../SmoothScroll.jsx";
 import "./blogscontainer.css";
 
 export function BlogsContainer({
@@ -22,7 +24,10 @@ export function BlogsContainer({
         className={`blog-column-container ${
           isVertical ? "vertical" : "horizontal"
         }`}
-        onClick={() => navigate("/singleBlog")}
+        onClick={() => {
+          navigate("/singleBlog");
+          scrollToSection("#nav");
+        }}
       >
         {[articleImg, articleImg2, articleImg3, articleImg].map(
           (img, index) => (

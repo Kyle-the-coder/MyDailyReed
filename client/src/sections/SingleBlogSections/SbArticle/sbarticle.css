@@ -1,0 +1,28 @@
+.sb-article-main-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 30px;
+}
+
+.sb-article-container {
+  line-height: 1.5;
+  width: 70%;
+}
+
+.sb-article-container p {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .sb-article-main-container {
+    flex-direction: column;
+  }
+  .sb-article-container {
+    width: 100%;
+  }
+  .sb-article-container h3 {
+    margin-bottom: 50px;
+  }
+}

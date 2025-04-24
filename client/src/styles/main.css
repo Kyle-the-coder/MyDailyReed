@@ -45,7 +45,10 @@ body {
   font-family: "Outfit", sans-serif;
   font-weight: 400;
 }
-
+.outfit-xthin-font {
+  font-family: "Outfit", sans-serif;
+  font-weight: 200;
+}
 .playfair-font {
   font-family: "Playfair";
   font-weight: 800;

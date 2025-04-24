@@ -104,7 +104,7 @@ export function Nav() {
 
   return (
     <nav id="nav" className="nav-main-container charcoal-bg">
-      {windowWidth <= 800 ? (
+      {windowWidth <= 700 ? (
         <>
           <div className="logo-ham-container">
             <div className="logo ">
