@@ -6,6 +6,7 @@ export function WordButton({ text, fontSize, margin }) {
       className="word-button green-bg outfit-font"
       style={{
         fontSize: fontSize ? fontSize : "clamp(1.8rem, 1.9vw, 2rem)",
+        margin: margin,
       }}
     >
       {text}

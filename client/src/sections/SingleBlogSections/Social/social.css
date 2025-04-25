@@ -1,0 +1,70 @@
+.social-main-container {
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 40px 30px;
+  border-top: 2px solid black;
+}
+
+.like-and-share {
+  width: 30%;
+  background-color: rgb(75, 90, 102);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.like-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.like {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+.like img {
+  width: 50px;
+  height: 50px;
+}
+
+.share-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.share-container div {
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.leave-comment {
+  width: 60%;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.leave-comment textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 0.5rem;
+  border: none;
+}
