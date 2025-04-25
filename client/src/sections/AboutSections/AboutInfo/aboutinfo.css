@@ -16,7 +16,7 @@
   padding: 40px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   .about-info-main-section {
     flex-direction: column;
     height: fit-content;

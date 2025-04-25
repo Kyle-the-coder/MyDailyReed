@@ -1,8 +1,8 @@
 .sidebar-main-container {
-  flex: 1;
+  width: 200px;
   position: absolute;
   top: 40px;
-  right: 40px;
+  right: 25px;
   bottom: 40px;
   display: flex;
   flex-direction: column;
