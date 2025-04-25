@@ -105,7 +105,6 @@ export function SbArticle() {
         </p>
         <h3 className="outfit-font">Jake Reed 4-10-25 mydailyreed.com</h3>
       </div>
-      <Sidebar author="My Daily Reed" />
     </div>
   );
 }

@@ -1,14 +1,13 @@
 .sb-article-main-container {
-  width: 100%;
+  width: 75%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 30px;
 }
 
 .sb-article-container {
   line-height: 1.5;
-  width: 70%;
+  width: 90%;
 }
 
 .sb-article-container p {
