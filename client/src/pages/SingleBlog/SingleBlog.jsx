@@ -20,17 +20,19 @@ function SingleBlog() {
       {windowWidth < 600 ? (
         <>
           <SbTitle />
-          <SbArticle />
+          <div className="padding-40">
+            <SbArticle />
+          </div>
 
           <Social />
-          <Sidebar />
+          <Sidebar author="My Daily Reed" />
         </>
       ) : (
         <>
           <SbTitle />
-          <div className="flex-between padding-40">
+          <div className="flex-between padding-40 pos-relative">
             <SbArticle />
-            <Sidebar />
+            <Sidebar author="My Daily Reed" />
           </div>
           <Social />
         </>
