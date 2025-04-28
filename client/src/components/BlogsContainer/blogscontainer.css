@@ -38,7 +38,7 @@
   display: grid;
   gap: 40px;
   cursor: pointer;
-  padding: 20px 20px;
+  padding: 20px;
 }
 
 .blog-column-container.horizontal {
@@ -47,4 +47,13 @@
 
 .blog-column-container.vertical {
   grid-template-columns: 1fr;
+}
+
+@media only screen and (max-width: 600px) {
+  .blog-column-container {
+    justify-content: center;
+  }
+  .blog-column-container.vertical {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+  }
 }

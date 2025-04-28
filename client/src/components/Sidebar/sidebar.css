@@ -29,7 +29,7 @@
   background-color: black;
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   .sidebar-main-container {
     width: 100%;
     margin: 0 auto;

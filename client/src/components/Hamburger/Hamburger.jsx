@@ -6,7 +6,7 @@ export function Hamburger({ isOpened }) {
   return (
     <button className="ham-button">
       <svg
-        className={`hamburger charcoal-bg ${
+        className={`hamburger ${
           hasLoaded ? (isOpened ? "open" : "close") : ""
         }`}
         onClick={() => {
