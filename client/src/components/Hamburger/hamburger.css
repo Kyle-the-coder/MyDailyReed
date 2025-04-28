@@ -1,136 +1,43 @@
-.ham-button {
-  width: fit-content;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
+svg {
+  shape-rendering: geometricPrecision;
 }
 
-.hamburger {
-  width: 60px;
-  height: 60px;
-  border: none;
-}
 .line {
-  transition: all 0.7s ease-in-out;
+  stroke: #c1ff72;
+  stroke-width: 10;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.7s ease-in-out;
 }
 
-.top {
-  transition-delay: 0.4s;
-  transform-origin: 73px 40px;
+/* animate rotation separately on the group */
+.top-group,
+.bottom-group {
+  transform-origin: center;
+  transition: transform 0.7s ease-in-out;
 }
 
-.bottom {
-  transform-origin: 76px 63px;
+.hamburger.open .top-group {
+  transform: rotate(-45deg);
 }
 
-.hamburger.open .top {
-  animation: to-close-icon-top 1s forwards;
+.hamburger.open .bottom-group {
+  transform: rotate(45deg);
 }
+
 .hamburger.open .middle {
-  animation: to-close-icon-middle 0.4s forwards;
-}
-.hamburger.open .bottom {
-  animation: to-close-icon-bottom 1s forwards;
+  stroke-dashoffset: -80;
 }
 
-.hamburger.close .top {
-  animation: to-open-top 2s forwards;
+/* Reverse animations */
+.hamburger.close .top-group {
+  transform: rotate(0deg);
 }
-.hamburger.close .bottom {
-  animation: to-open-bottom 2s forwards;
+
+.hamburger.close .bottom-group {
+  transform: rotate(0deg);
 }
 
 .hamburger.close .middle {
-  stroke-dashoffset: -80;
-  animation: to-open-middle 0.35s forwards ease-out 0.8s;
-}
-@keyframes to-close-icon-top {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  40% {
-    stroke-dashoffset: -80;
-  }
-  80% {
-    stroke-dashoffset: -80;
-    rotate: -45deg;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    rotate: -45deg;
-  }
-}
-@keyframes to-close-icon-middle {
-  0% {
-    stroke-dashoffset: 0;
-  }
-
-  100% {
-    stroke-dashoffset: -80;
-  }
-}
-
-@keyframes to-close-icon-bottom {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  40% {
-    stroke-dashoffset: -80;
-  }
-  60% {
-    stroke-dashoffset: -80;
-    rotate: 45deg;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    rotate: 45deg;
-  }
-}
-
-@keyframes to-open-top {
-  0% {
-    stroke-dashoffset: 0;
-    rotate: -45deg;
-  }
-  20% {
-    stroke-dashoffset: -80;
-    rotate: -45deg;
-  }
-  40% {
-    rotate: 0deg;
-    stroke-dashoffset: -80;
-  }
-  60% {
-    rotate: 0deg;
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes to-open-bottom {
-  0% {
-    stroke-dashoffset: 0;
-    rotate: 45deg;
-  }
-  20% {
-    stroke-dashoffset: -80;
-    rotate: 45deg;
-  }
-  40% {
-    rotate: 0deg;
-    stroke-dashoffset: -80;
-  }
-  60% {
-    rotate: 0deg;
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes to-open-middle {
-  0% {
-    stroke-dashoffset: -80;
-  }
-
-  100% {
-    stroke-dashoffset: 0;
-  }
+  stroke-dashoffset: 0;
 }

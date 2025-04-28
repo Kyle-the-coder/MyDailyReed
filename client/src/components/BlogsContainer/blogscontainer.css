@@ -36,7 +36,7 @@
 .blog-column-container {
   width: 100%;
   display: grid;
-  gap: 10px;
+  gap: 40px;
   cursor: pointer;
   padding: 20px 20px;
 }

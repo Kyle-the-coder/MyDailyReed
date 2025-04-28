@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import heroBg from "../../assets/heroImg/MDRHeroBg2.png";
+import heroBg from "../../assets/heroImg/MDRLogoCup.png";
 import heroBgMobile from "../../assets/heroImg/MDRHeroBgPhone.png";
 import "./hero.css";
 import { WordButton } from "../../components/Buttons/WordButton/WordButton";
