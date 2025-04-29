@@ -1,5 +1,5 @@
 const express = require("express");
-require("dotenv").config({ path: "./.env" }); // Load env variables
+require("dotenv").config({ path: "../.env" });
 const connectDB = require("./config/mongoose.config");
 const cors = require("cors");
 
@@ -24,4 +24,4 @@ const startServer = async () => {
   }
 };
 
-startServer(); // ✅ actually start the app
+startServer();
