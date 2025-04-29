@@ -7,7 +7,7 @@ const app = express();
 const port = 8000;
 
 const corsOptions = {
-  origin: process.env.CORS_ALLOWED_ORIGIN || port || "*",
+  origin: process.env.CORS_ALLOWED_ORIGIN || port,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };

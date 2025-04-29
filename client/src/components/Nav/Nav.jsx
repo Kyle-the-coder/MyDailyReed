@@ -108,7 +108,12 @@ export function Nav() {
         <>
           <div className="logo-ham-container">
             <div className="logo ">
-              <img src={logo} />
+              <img
+                src={logo}
+                onClick={() => {
+                  navigate("/"), setHoverIndex(0);
+                }}
+              />
             </div>
             <div
               className="nav-hamburger-container "
@@ -159,7 +164,12 @@ export function Nav() {
             <ArrowButton />
           </div>
           <div className="logo-links ">
-            <img src={logo} />
+            <img
+              src={logo}
+              onClick={() => {
+                navigate("/"), setHoverIndex(0);
+              }}
+            />
             <div className="links ">
               {links.map((link, index) => (
                 <div
