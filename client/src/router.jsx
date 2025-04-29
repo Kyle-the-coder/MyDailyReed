@@ -4,6 +4,7 @@ import { ErrorLayout } from "./layouts/ErrorLayout";
 import { landingRoute } from "./pages/Landing/Landing";
 import { aboutRoute } from "./pages/About/About";
 import { singleBlogRoute } from "./pages/SingleBlog/SingleBlog";
+import { loginRoute } from "./pages/Login/Login";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
       { path: "/", ...landingRoute },
       { path: "/about", ...aboutRoute },
       { path: "/singleBlog", ...singleBlogRoute },
+      { path: "/login", ...loginRoute },
     ],
   },
 ]);

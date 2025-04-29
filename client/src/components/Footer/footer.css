@@ -94,6 +94,18 @@
   right: 1%;
   cursor: pointer;
 }
+
+.login-button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 5%;
+  left: 1%;
+  cursor: pointer;
+}
 @media only screen and (max-width: 800px) {
   .footer-main-container {
     flex-direction: column;

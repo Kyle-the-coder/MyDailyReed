@@ -1,15 +1,18 @@
-import { ToTopButton } from "../Buttons/ToTopButton/ToTopButton";
 import logo from "../../assets/logo/MDRLogoB.png";
 import linked from "../../assets/icons/linkedInBlack.png";
 import fb from "../../assets/icons/facebookBlack.png";
 import insta from "../../assets/icons/instagramBlack.png";
-import "./footer.css";
+import login from "../../assets/icons/import.png";
+import { ToTopButton } from "../Buttons/ToTopButton/ToTopButton";
 import { WordButton } from "../Buttons/WordButton/WordButton";
 import { scrollToSection } from "../SmoothScroll";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./footer.css";
 
 export function Footer() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -89,6 +92,13 @@ export function Footer() {
           >
             <ToTopButton />
           </div>
+          <img
+            src={login}
+            className="login-button"
+            onClick={() => {
+              scrollToSection("#nav"), navigate("/login");
+            }}
+          />
         </>
       )}
     </section>
