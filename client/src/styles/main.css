@@ -153,3 +153,7 @@ body {
 .pos-relative {
   position: relative;
 }
+
+.neg-marg {
+  margin-top: -1px;
+}
