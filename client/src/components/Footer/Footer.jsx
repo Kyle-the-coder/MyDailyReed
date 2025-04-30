@@ -58,6 +58,13 @@ export function Footer() {
           >
             <ToTopButton />
           </div>
+          <img
+            src={login}
+            className="login-button"
+            onClick={() => {
+              scrollToSection("#nav"), navigate("/login");
+            }}
+          />
         </>
       ) : (
         <>
