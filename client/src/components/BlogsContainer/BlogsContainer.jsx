@@ -17,7 +17,7 @@ export function BlogsContainer({
     <section className="display-column">
       <div className="title-container">
         <h1 className="outfit-font">{title}</h1>
-        <div className="line"></div>
+        <div className="line-blog"></div>
       </div>
 
       <div

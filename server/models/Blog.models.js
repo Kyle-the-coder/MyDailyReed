@@ -34,13 +34,17 @@ const BlogInfoSchema = new mongoose.Schema({
   comments: [
     {
       name: String,
-      message: String,
+      comment: String,
       date: {
         type: Date,
         default: Date.now,
       },
     },
   ],
+  categories: {
+    type: [String],
+    default: [],
+  },
 });
 
 const Blog = mongoose.model("Blog", BlogInfoSchema);
