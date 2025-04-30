@@ -7,18 +7,20 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // You can navigate or show success message here
       console.log("Logged in!");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     }
@@ -29,6 +31,7 @@ function Login() {
     try {
       await signInWithPopup(auth, provider);
       console.log("Google login successful");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     }
