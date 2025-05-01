@@ -9,6 +9,7 @@
   overflow: hidden;
   padding: 5%;
   margin-top: -1px;
+  gap: 20px;
 }
 
 .db-hero-main-container img {
@@ -31,9 +32,10 @@
 @media only screen and (max-width: 600px) {
   .db-hero-main-container {
     align-items: center;
-    justify-content: flex-start;
-    height: 1000px;
-    padding: 5px;
+    justify-content: center;
+    gap: 30px;
+    height: 400px;
+    padding: 20px;
   }
 
   .db-hero-main-container img {
@@ -44,6 +46,6 @@
     margin-bottom: 10px;
 
     text-align: center;
-    font-size: 7rem;
+    font-size: 4rem;
   }
 }

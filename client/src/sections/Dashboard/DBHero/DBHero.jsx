@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import heroBg from "../../../assets/heroImg/dashboardBg.jpg";
+import heroBgPhone from "../../../assets/heroImg/dashboardBgPhone.jpg";
+
 import "./dbhero.css";
 
 export function DBHero() {
@@ -17,7 +19,7 @@ export function DBHero() {
     <section className="db-hero-main-container">
       {windowWidth <= 600 ? (
         <>
-          <img src={heroBg} />
+          <img src={heroBgPhone} />
           <h1 className="outfit-font ">Welcome</h1>
           <h1 className="outfit-font green-text">To Your</h1>
           <h1 className="outfit-font green-text">Dashboard</h1>

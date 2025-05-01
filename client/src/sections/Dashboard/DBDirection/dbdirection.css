@@ -17,3 +17,17 @@
   width: 50px;
   height: 50px;
 }
+
+@media only screen and (max-width: 600px) {
+  .db-direction-container h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .db-direction-container {
+    padding: 10px;
+  }
+  .db-direction-container img {
+    width: 40px;
+    height: 40px;
+  }
+}
