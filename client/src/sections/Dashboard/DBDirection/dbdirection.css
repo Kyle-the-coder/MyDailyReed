@@ -7,6 +7,8 @@
   cursor: pointer;
   padding: 40px;
   border-radius: 0.5rem;
+  text-decoration: none;
+  color: black;
 }
 
 .db-direction-container h1 {

@@ -28,7 +28,7 @@ function Login() {
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
-    const allowedEmail = "urok.dance@gmail.com"; // <-- Replace with your allowed email
+    const allowedEmail = import.meta.env.VITE_EMAIL; // <-- Replace with your allowed email
 
     try {
       const result = await signInWithPopup(auth, provider);
