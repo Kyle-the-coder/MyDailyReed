@@ -5,7 +5,7 @@ const cors = require("cors");
 const admin = require("firebase-admin");
 const path = require("path");
 
-const serviceAccount = require("./admin/mydailyreed-firebase-adminsdk-fbsvc-27168ac536.json");
+const serviceAccount = require("./firebase-service-account.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
