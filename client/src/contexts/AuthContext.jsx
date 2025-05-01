@@ -2,8 +2,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { Loader } from "../components/Loader/Loader";
 
-console.log(import.meta.env.VITE_FB_API_KEY);
 const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -11,9 +11,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("Firebase Auth State Changed:", user);
       setCurrentUser(user);
-      setLoading(false);
+      // setLoading(false);
     });
 
     return () => unsubscribe();
@@ -21,7 +20,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{ currentUser }}>
-      {loading ? <p>Loading auth...</p> : children}
+      {loading ? <Loader /> : children}
     </AuthContext.Provider>
   );
 }
