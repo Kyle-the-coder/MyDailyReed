@@ -11,7 +11,7 @@ export function DBDirection() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate("/login"); // redirect to login page after logout
+      navigate("/login");
     } catch (error) {
       console.error("Error signing out:", error);
     }
