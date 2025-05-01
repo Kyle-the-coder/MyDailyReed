@@ -48,6 +48,13 @@
   font-size: 0.75rem;
   line-height: 1rem;
   margin: 8px 0 14px 0;
+  cursor: pointer;
+}
+
+.forgot-password-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 
 .forgot a,
@@ -117,4 +124,13 @@
   font-size: 0.75rem;
   line-height: 1rem;
   color: rgba(156, 163, 175, 1);
+}
+
+.error-message {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: rgb(198, 13, 13);
+  text-align: center;
 }

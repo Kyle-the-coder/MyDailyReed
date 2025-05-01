@@ -22,18 +22,28 @@ function Login() {
       console.log("Logged in!");
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message);
+      setError("Incorrect Email/Password");
     }
   };
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
+    const allowedEmail = "urok.dance@gmail.com"; // <-- Replace with your allowed email
+
     try {
-      await signInWithPopup(auth, provider);
-      console.log("Google login successful");
-      navigate("/dashboard");
+      const result = await signInWithPopup(auth, provider);
+      const userEmail = result.user.email;
+
+      if (userEmail !== allowedEmail) {
+        await auth.signOut();
+        setError("Access denied: unauthorized Google account.");
+      } else {
+        console.log("Google login successful");
+        navigate("/dashboard");
+      }
     } catch (err) {
-      setError(err.message);
+      console.error(err);
+      setError("Google sign-in failed.");
     }
   };
 
@@ -84,7 +94,7 @@ function Login() {
             <div className="forgot">
               <button
                 type="button"
-                className="forgot-password-btn"
+                className="forgot-password-btn outfit-font"
                 onClick={handleForgotPassword}
               >
                 Forgot Password?

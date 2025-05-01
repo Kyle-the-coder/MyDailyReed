@@ -2,6 +2,14 @@ const express = require("express");
 require("dotenv").config({ path: "../.env" });
 const connectDB = require("./config/mongoose.config");
 const cors = require("cors");
+const admin = require("firebase-admin");
+const path = require("path");
+
+const serviceAccount = require("./admin/mydailyreed-firebase-adminsdk-fbsvc-27168ac536.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 const app = express();
 const port = 8000;
@@ -13,15 +21,36 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-//Routes
+const authenticate = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Missing or invalid token" });
+  }
+
+  const idToken = authHeader.split(" ")[1];
+  const allowedEmail = process.env.FB_EMAIL;
+
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    if (decodedToken.email !== allowedEmail) {
+      return res.status(403).json({ message: "Unauthorized email" });
+    }
+
+    req.user = decodedToken;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Token verification failed" });
+  }
+};
+
+// Routes
 const blogRoutes = require("./routes/blog.routes");
-app.use("/api/blogs", blogRoutes);
+app.use("/api/blogs", authenticate, blogRoutes); // 🔐 Protect all blog routes
 
 // Start server
 const startServer = async () => {
