@@ -20,7 +20,7 @@ export function DBDirection() {
   return (
     <section
       style={{ height: "600px", padding: "40px", gap: "50px" }}
-      className="display-column charcoal-bg"
+      className="display-column charcoal-bg neg-marg"
     >
       <div className="db-direction-container green-bg">
         <h1 className="outfit-font">Create a Blog Post</h1>
