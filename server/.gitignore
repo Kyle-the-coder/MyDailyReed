@@ -1,3 +1,2 @@
 .env
-server/admin/*.json
-server/admin/mydailyreed-firebase-adminsdk-fbsvc-27168ac536.json
+.firebase-service-account.json
