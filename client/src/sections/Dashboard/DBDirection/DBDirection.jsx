@@ -23,7 +23,9 @@ export function DBDirection() {
       className="display-column charcoal-bg neg-marg"
     >
       <div className="db-direction-container green-bg">
-        <h1 className="outfit-font">Create a Blog Post</h1>
+        <h1 className="outfit-font" onClick={() => navigate("/createBlog")}>
+          Create a Blog Post
+        </h1>
         <img src={add} />
       </div>
       <div className="db-direction-container green-bg">

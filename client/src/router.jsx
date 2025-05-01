@@ -7,6 +7,7 @@ import { singleBlogRoute } from "./pages/SingleBlog/SingleBlog";
 import { loginRoute } from "./pages/Login/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
+import { CreateBlog } from "./pages/CreateBlog/CreateBlog";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +23,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/createBlog",
+        element: (
+          <PrivateRoute>
+            <CreateBlog />
           </PrivateRoute>
         ),
       },
