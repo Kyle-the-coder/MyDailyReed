@@ -41,7 +41,10 @@ export function DBDirection() {
       <button
         className="word-button green-bg outfit-font"
         style={{ fontSize: "1.5rem" }}
-        onClick={handleLogout}
+        onClick={() => {
+          handleLogout();
+          window.scrollTo(0, 0);
+        }}
       >
         Logout
       </button>
