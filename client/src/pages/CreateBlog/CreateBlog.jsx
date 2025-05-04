@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TiptapEditor from "../../components/TiptapEditor";
+import TiptapEditor from "../../components/TipTap/TiptapEditor";
 import menu from "../../assets/icons/formIcons/menu.png";
 import description from "../../assets/icons/formIcons/description.png";
 import image from "../../assets/icons/formIcons/image.png";
