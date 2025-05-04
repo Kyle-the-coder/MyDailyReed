@@ -37,14 +37,27 @@ export function CreateBlog() {
       case "Description":
       case "Article":
         return (
-          <div key={index} className="display-column">
-            <label className="input-label outfit-font">{field.type}</label>
+          <div
+            style={{ marginBottom: "100px" }}
+            key={index}
+            className="display-column"
+          >
+            <label
+              style={{ fontSize: "1.5rem" }}
+              className="input-label outfit-font"
+            >
+              {field.type}
+            </label>
             <TiptapEditor onChange={(val) => handleChange(index, val)} />
           </div>
         );
       case "Redirect":
         return (
-          <div key={index} className="display-column">
+          <div
+            style={{ marginBottom: "100px" }}
+            key={index}
+            className="display-column"
+          >
             <label className="input-label outfit-font">Redirect URL</label>
             <input
               className="input"
@@ -56,7 +69,11 @@ export function CreateBlog() {
         );
       case "Image":
         return (
-          <div key={index} className="display-column">
+          <div
+            style={{ marginBottom: "100px" }}
+            key={index}
+            className="display-column"
+          >
             <label className="input-label outfit-font">Upload Image</label>
             <input
               className="input-file"

@@ -28,7 +28,7 @@ export default function TiptapEditor({ onChange }) {
   };
 
   return (
-    <div className="editor-wrapper">
+    <div className="editor-wrapper dark-silver-bg">
       <div className="toolbar">
         <button
           type="button"
