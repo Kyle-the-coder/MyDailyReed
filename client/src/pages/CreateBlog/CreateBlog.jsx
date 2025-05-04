@@ -15,10 +15,10 @@ export function CreateBlog() {
   const [part, setPart] = useState(null);
 
   const formIconArray = [
-    { img: description, type: "description", label: "Description" },
-    { img: redirect, type: "redirect", label: "Redirect Link" },
-    { img: article, type: "article", label: "Article Content" },
-    { img: image, type: "image", label: "Image Upload" },
+    { img: description, type: "Description", label: "Description" },
+    { img: redirect, type: "Redirect", label: "Redirect Link" },
+    { img: article, type: "Article", label: "Article Content" },
+    { img: image, type: "Image", label: "Image Upload" },
   ];
 
   const handleAddField = (type) => {
@@ -34,17 +34,17 @@ export function CreateBlog() {
 
   const renderFormField = (field, index) => {
     switch (field.type) {
-      case "description":
-      case "article":
+      case "Description":
+      case "Article":
         return (
-          <div key={index} className="input-container">
+          <div key={index} className="display-column">
             <label className="input-label outfit-font">{field.type}</label>
             <TiptapEditor onChange={(val) => handleChange(index, val)} />
           </div>
         );
-      case "redirect":
+      case "Redirect":
         return (
-          <div key={index} className="input-container">
+          <div key={index} className="display-column">
             <label className="input-label outfit-font">Redirect URL</label>
             <input
               className="input"
@@ -54,9 +54,9 @@ export function CreateBlog() {
             />
           </div>
         );
-      case "image":
+      case "Image":
         return (
-          <div key={index} className="input-container">
+          <div key={index} className="display-column">
             <label className="input-label outfit-font">Upload Image</label>
             <input
               className="input-file"

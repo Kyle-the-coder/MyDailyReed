@@ -23,7 +23,6 @@ export default function TiptapEditor({ onChange }) {
 
   if (!editor) return null;
 
-  // Handler to prevent form submission or page reload
   const handleButtonClick = (event) => {
     event.preventDefault();
   };

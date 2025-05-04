@@ -1,12 +1,11 @@
-/* Overall editor wrapper styling */
 .editor-wrapper {
   width: 100%;
-  max-width: 800px; /* Set a max-width for better control */
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
+  margin: 0 auto;
   background-color: aquamarine;
-  margin: 0 auto; /* Center the editor wrapper */
+  margin: 0 auto;
 }
 
 /* Toolbar styles */
@@ -21,7 +20,6 @@
   justify-content: flex-start; /* Align buttons to the left */
 }
 
-/* Toolbar button styles */
 .toolbar button {
   padding: 0.5rem 1rem;
   border: none;
