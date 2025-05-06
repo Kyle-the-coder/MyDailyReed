@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", ...landingRoute },
       { path: "/about", ...aboutRoute },
-      { path: "/singleBlog", ...singleBlogRoute },
+      { path: "/singleBlog/:id", ...singleBlogRoute },
       { path: "/login", ...loginRoute },
       {
         path: "/dashboard",
