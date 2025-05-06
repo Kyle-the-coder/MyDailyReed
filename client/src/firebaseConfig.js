@@ -1,6 +1,8 @@
 // firebaseConfig.js
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth"; // ✅ Add this line
+
+import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -13,9 +15,8 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FB_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const storage = getStorage(app);
+const auth = getAuth(app);
 
-// ✅ Initialize and export auth
-export const auth = getAuth(app);
+export { storage, auth };

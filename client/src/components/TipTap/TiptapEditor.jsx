@@ -84,7 +84,27 @@ export default function TiptapEditor({ onChange }) {
           type="button"
           onClick={(event) => {
             handleButtonClick(event);
-            editor.chain().focus().toggleLink().run();
+            const previousUrl = editor.getAttributes("link").href;
+            let url = window.prompt("Enter URL", previousUrl || "");
+
+            if (url === null) {
+              return; // User cancelled
+            }
+
+            // If user didn't enter a protocol, add https://
+            if (
+              url &&
+              !url.startsWith("http://") &&
+              !url.startsWith("https://")
+            ) {
+              url = `https://${url}`;
+            }
+
+            if (url === "") {
+              editor.chain().focus().unsetLink().run(); // Remove link
+            } else {
+              editor.chain().focus().setLink({ href: url }).run(); // Set new link
+            }
           }}
           className={editor.isActive("link") ? "active" : ""}
         >
