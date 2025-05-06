@@ -1,20 +1,23 @@
 // src/api/blogApi.js
 import axios from "axios";
+import { auth } from "../firebaseConfig";
 
 // Set your base URL
 const API_BASE_URL = import.meta.env.VITE_API; // Change to your deployed URL in production
 
-// Helper to get Firebase token from current user (adjust as needed)
 const getAuthHeaders = async () => {
-  const user = await window.firebase.auth().currentUser?.getIdToken();
+  const currentUser = auth.currentUser;
+  if (!currentUser) throw new Error("No user is signed in");
+
+  const token = await currentUser.getIdToken();
   return {
     headers: {
-      Authorization: `Bearer ${user}`,
+      Authorization: `Bearer ${token}`,
     },
   };
 };
 
-export const createBlog = async (blogData) => {
+export const postBlog = async (blogData) => {
   const config = await getAuthHeaders();
   return axios.post(API_BASE_URL, blogData, config);
 };

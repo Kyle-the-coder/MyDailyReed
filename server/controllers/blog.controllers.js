@@ -1,4 +1,4 @@
-const Blog = require("../models/Blog.models");
+const Blog = require("../models/blog.models");
 
 //Find All
 const findAll = async (req, res) => {

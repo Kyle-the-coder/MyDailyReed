@@ -1,6 +1,10 @@
+import { uploadImageToFirebase } from "../../utils/uploadImage";
+
 import { useState } from "react";
+import { postBlog } from "../../utils/blogApi";
 import TiptapEditor from "../../components/TipTap/TiptapEditor";
 import menu from "../../assets/icons/formIcons/menu.png";
+import submit from "../../assets/icons/formIcons/check.png";
 import description from "../../assets/icons/formIcons/description.png";
 import image from "../../assets/icons/formIcons/image.png";
 import article from "../../assets/icons/formIcons/content-writing.png";
@@ -88,6 +92,45 @@ export function CreateBlog() {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let photoUrl = null;
+
+    try {
+      // Upload main blog photo
+      const photoInput = document.querySelector('input[type="file"]');
+      if (photoInput?.files[0]) {
+        photoUrl = await uploadImageToFirebase(photoInput.files[0]);
+      }
+
+      // Upload images inside formArray (for content blocks)
+      const processedContent = await Promise.all(
+        formArray.map(async (field) => {
+          if (field.type === "Image" && field.value instanceof File) {
+            const uploadedUrl = await uploadImageToFirebase(field.value);
+            return { ...field, value: uploadedUrl };
+          }
+          return field;
+        })
+      );
+
+      const blogPayload = {
+        title,
+        subTitle,
+        part,
+        imgUrl: photoUrl,
+        content: processedContent,
+      };
+
+      await postBlog(blogPayload);
+      alert("Blog created!");
+    } catch (error) {
+      console.error("Error submitting blog:", error);
+      alert("Failed to submit blog");
+    }
+  };
+
   return (
     <section className="create-blog-main">
       <h1 className="outfit-font">Create a Blog</h1>
@@ -135,6 +178,12 @@ export function CreateBlog() {
                 src={menu}
                 onClick={() => setExpandIcons(!expandIcons)}
               />
+              <img
+                className="form-icon submit-icon off-white-bg"
+                src={submit}
+                onClick={(e) => handleSubmit(e)}
+              />
+
               <div className={`expanded-icons ${expandIcons ? "show" : ""}`}>
                 {formIconArray.map((icon, index) => (
                   <img

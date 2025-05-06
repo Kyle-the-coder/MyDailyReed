@@ -1,5 +1,5 @@
 const express = require("express");
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: "./.env" });
 const connectDB = require("./config/mongoose.config");
 const cors = require("cors");
 const admin = require("firebase-admin");
@@ -37,6 +37,8 @@ const authenticate = async (req, res, next) => {
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
+    console.log("Decoded email:", decodedToken.email);
+    console.log("Allowed email:", allowedEmail);
     if (decodedToken.email !== allowedEmail) {
       return res.status(403).json({ message: "Unauthorized email" });
     }

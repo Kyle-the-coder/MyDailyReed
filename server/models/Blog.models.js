@@ -1,5 +1,7 @@
+const mongoose = require("mongoose");
+
 const BlogInfoSchema = new mongoose.Schema({
-  title: { type: String, required: true },
+  title: { type: String },
   subTitle: String,
   part: String,
   imgUrl: String,
@@ -8,13 +10,12 @@ const BlogInfoSchema = new mongoose.Schema({
       type: {
         type: String,
         enum: ["Description", "Article", "Image", "Redirect"],
-        required: true,
       },
       value: mongoose.Schema.Types.Mixed,
     },
   ],
-  author: { type: String, required: true },
-  readTime: { type: String, required: true },
+  author: { type: String },
+  readTime: { type: String },
   datePosted: { type: Date, default: Date.now, required: true },
   likes: { type: Number, default: 0 },
   comments: [
@@ -26,3 +27,5 @@ const BlogInfoSchema = new mongoose.Schema({
   ],
   categories: { type: [String], default: [] },
 });
+
+module.exports = mongoose.model("Blog", BlogInfoSchema);

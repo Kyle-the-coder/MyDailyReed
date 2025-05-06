@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../firebase/firebaseConfig";
+import { storage } from "../firebaseConfig";
 
-export const uploadImageToFirebase = async (file, folder = "blogImages") => {
+export const uploadImageToFirebase = async (file, folder = "blogFolder") => {
   if (!file) throw new Error("No file provided");
 
   const fileRef = ref(storage, `${folder}/${Date.now()}-${file.name}`);

@@ -61,6 +61,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  position: relative;
 }
 .expanded-icons {
   display: flex;
@@ -72,6 +73,13 @@
 .menu-icon {
   z-index: 3;
   margin-right: 10px;
+  padding: 4px;
+}
+.submit-icon {
+  z-index: 3;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
   padding: 4px;
 }
 
