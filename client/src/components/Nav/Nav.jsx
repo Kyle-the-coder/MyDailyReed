@@ -107,7 +107,7 @@ export function Nav() {
       {windowWidth <= 700 ? (
         <>
           <div className="logo-ham-container">
-            <div className="logo ">
+            <div className="logo">
               <img
                 src={logo}
                 onClick={() => {
@@ -163,14 +163,14 @@ export function Nav() {
             />
             <ArrowButton />
           </div>
-          <div className="logo-links ">
+          <div className="logo-links">
             <img
               src={logo}
               onClick={() => {
                 navigate("/"), setHoverIndex(0);
               }}
             />
-            <div className="links ">
+            <div className="links">
               {links.map((link, index) => (
                 <div
                   onMouseEnter={() => handleMouseEnter(index)}

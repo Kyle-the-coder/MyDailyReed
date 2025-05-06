@@ -28,10 +28,12 @@
 .logo {
   width: 100px;
   height: 100px;
+  cursor: pointer;
 }
 
 .logo img {
   width: 100%;
+  cursor: pointer;
 }
 
 .logo-links {
@@ -51,6 +53,7 @@
 .logo-links img {
   width: 200px;
   height: auto;
+  cursor: pointer;
 }
 
 .links {

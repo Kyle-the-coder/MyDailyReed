@@ -100,6 +100,40 @@
   transform: scale(1.1);
 }
 
+.category-container {
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.cat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  border: 2px solid black;
+  text-align: center;
+  font-size: 1rem;
+  word-break: break-word;
+  cursor: pointer;
+  padding: 5px 15px;
+  transition: all 0.8s;
+  font-size: 1.3rem;
+}
+
+.post-loader-container {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
 @media only screen and (max-width: 600px) {
   .input-container {
     width: 100%;

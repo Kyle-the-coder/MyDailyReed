@@ -3,7 +3,7 @@ import "./loader.css";
 export function Loader() {
   return (
     // <!-- From Uiverse.io by Nawsome -->
-    <div className="loader-container charcoal-bg">
+    <div className="loader-container ">
       <div className="typewriter">
         <div className="slide">
           <i></i>

@@ -1,7 +1,7 @@
 import { uploadImageToFirebase } from "../../utils/uploadImage";
-
 import { useState } from "react";
 import { postBlog } from "../../utils/blogApi";
+import { PostLoader } from "../../components/Loader/PostLoader/PostLoader";
 import TiptapEditor from "../../components/TipTap/TiptapEditor";
 import menu from "../../assets/icons/formIcons/menu.png";
 import submit from "../../assets/icons/formIcons/check.png";
@@ -12,9 +12,17 @@ import redirect from "../../assets/icons/formIcons/shuffle.png";
 import "./createblog.css";
 
 export function CreateBlog() {
+  const [mainImagePreview, setMainImagePreview] = useState(null);
+  const [imagePreviews, setImagePreviews] = useState({});
+
+  const [isLoading, setIsLoading] = useState(false);
   const [expandIcons, setExpandIcons] = useState(false);
   const [formArray, setFormArray] = useState([]);
   const [title, setTitle] = useState(null);
+  const [author, setAuthor] = useState(null);
+  const [readTime, setReadTime] = useState(null);
+  const [categories, setCategories] = useState([]);
+
   const [subTitle, setSubTitle] = useState(null);
   const [part, setPart] = useState(null);
 
@@ -34,6 +42,11 @@ export function CreateBlog() {
     const updated = [...formArray];
     updated[index].value = content;
     setFormArray(updated);
+
+    if (updated[index].type === "Image" && content instanceof File) {
+      const previewURL = URL.createObjectURL(content);
+      setImagePreviews((prev) => ({ ...prev, [index]: previewURL }));
+    }
   };
 
   const renderFormField = (field, index) => {
@@ -85,8 +98,20 @@ export function CreateBlog() {
               accept="image/*"
               onChange={(e) => handleChange(index, e.target.files[0])}
             />
+            {imagePreviews[index] && (
+              <img
+                src={imagePreviews[index]}
+                alt="Preview"
+                style={{
+                  maxWidth: "200px",
+                  marginTop: "10px",
+                  borderRadius: "8px",
+                }}
+              />
+            )}
           </div>
         );
+
       default:
         return null;
     }
@@ -94,6 +119,7 @@ export function CreateBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     let photoUrl = null;
 
@@ -119,12 +145,16 @@ export function CreateBlog() {
         title,
         subTitle,
         part,
+        author,
+        readTime,
         imgUrl: photoUrl,
+        categories,
         content: processedContent,
       };
 
       await postBlog(blogPayload);
       alert("Blog created!");
+      setIsLoading(false);
     } catch (error) {
       console.error("Error submitting blog:", error);
       alert("Failed to submit blog");
@@ -165,8 +195,74 @@ export function CreateBlog() {
             />
           </div>
           <div className="input-container">
+            <label className="input-label outfit-font">Author:</label>
+            <input
+              className="input playfair-font"
+              type="text"
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <label className="input-label outfit-font">Read Time:</label>
+            <input
+              className="input playfair-font"
+              type="text"
+              onChange={(e) => setReadTime(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <label className="input-label outfit-font">Categories:</label>
+            <input
+              style={{ fontSize: "1.3rem" }}
+              className="input playfair-font"
+              type="text"
+              placeholder="e.g. Monday Devotion, Tuesday Article, etc"
+              onChange={(e) =>
+                setCategories(
+                  e.target.value
+                    .split(",")
+                    .map((cat) => cat.trim())
+                    .filter((cat) => cat !== "")
+                )
+              }
+            />
+            {categories.length > 0 && (
+              <div className="category-container outfit-font">
+                Categories:
+                {categories.map((cat, index) => {
+                  return (
+                    <div key={cat} className="cat silver-bg">
+                      {cat}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <div className="input-container">
             <label className="input-label outfit-font">Photo:</label>
-            <input className="input-file" type="file" accept="image/*" />
+            <input
+              className="input-file"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  setMainImagePreview(URL.createObjectURL(file));
+                }
+              }}
+            />
+            {mainImagePreview && (
+              <img
+                src={mainImagePreview}
+                alt="Main preview"
+                style={{
+                  maxWidth: "200px",
+                  marginTop: "10px",
+                  borderRadius: "8px",
+                }}
+              />
+            )}
           </div>
 
           <div className="form-array-container">
@@ -178,11 +274,19 @@ export function CreateBlog() {
                 src={menu}
                 onClick={() => setExpandIcons(!expandIcons)}
               />
-              <img
-                className="form-icon submit-icon off-white-bg"
-                src={submit}
-                onClick={(e) => handleSubmit(e)}
-              />
+              {isLoading ? (
+                <div className="post-loader-container">
+                  <PostLoader />
+                </div>
+              ) : (
+                <>
+                  <img
+                    className="form-icon submit-icon off-white-bg"
+                    src={submit}
+                    onClick={(e) => handleSubmit(e)}
+                  />
+                </>
+              )}
 
               <div className={`expanded-icons ${expandIcons ? "show" : ""}`}>
                 {formIconArray.map((icon, index) => (
