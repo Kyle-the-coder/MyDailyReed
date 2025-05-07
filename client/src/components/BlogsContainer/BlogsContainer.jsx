@@ -21,7 +21,9 @@ export function BlogsContainer({
     const fetchBlogs = async () => {
       try {
         const response = await getBlogs();
-        const data = response.data;
+        const data = response;
+
+        console.log(data);
 
         // Check if trending and at least one blog has a likes property
         const hasLikes = data.some((blog) => typeof blog.likes === "number");

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import likeEmpty from "../../../assets/icons/likeEmpty.png";
-import likeFilled from "../../../assets/icons/likeFilled.png";
+import { getAuth } from "firebase/auth";
 import { WordButton } from "../../../components/Buttons/WordButton/WordButton";
 import { getBlogById, updateBlog } from "../../../utils/blogApi";
-
+import likeFilled from "../../../assets/icons/likeFilled.png";
+import likeEmpty from "../../../assets/icons/likeEmpty.png";
 import "./social.css";
 
 export function Social() {
@@ -13,13 +13,17 @@ export function Social() {
   const [isLike, setIsLike] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  // Fetch blog by ID
   useEffect(() => {
     const fetchBlog = async () => {
       try {
         const response = await getBlogById(id);
-        setBlog(response.data);
-        setIsLike(response.data.likes > 0); // Adjust as needed
+        setBlog(response);
+
+        const user = getAuth().currentUser;
+        if (user) {
+          const hasLiked = response.data.likes.includes(user.uid);
+          setIsLike(hasLiked);
+        }
       } catch (err) {
         console.error("Failed to fetch blog:", err);
       }
@@ -29,13 +33,23 @@ export function Social() {
 
   const handleLikeToggle = async () => {
     if (!blog) return;
-    const updatedLikes = isLike ? blog.likes - 1 : blog.likes + 1;
+
+    const user = getAuth().currentUser;
+    if (!user) return; // maybe prompt login
+
+    const uid = user.uid;
+    const hasLiked = blog.likes.includes(uid);
+
+    const updatedLikes = hasLiked
+      ? blog.likes.filter((id) => id !== uid)
+      : [...blog.likes, uid];
+
     const updatedBlog = { ...blog, likes: updatedLikes };
 
     try {
       await updateBlog(id, updatedBlog);
       setBlog(updatedBlog);
-      setIsLike(!isLike);
+      setIsLike(!hasLiked);
     } catch (err) {
       console.error("Failed to update likes:", err);
     }
@@ -72,7 +86,7 @@ export function Social() {
                 onClick={handleLikeToggle}
                 alt="like button"
               />
-              <p>{blog.likes || 0} likes</p>
+              <p>{blog.likes.length || 0} likes</p>
             </div>
             <h1 className="outfit-font">Leave a like</h1>
           </div>

@@ -25,7 +25,7 @@ function SingleBlog() {
     const fetchBlog = async () => {
       try {
         const res = await getBlogById(id);
-        setBlog(res.data);
+        setBlog(res);
       } catch (err) {
         console.error("Failed to fetch blog:", err);
       }
