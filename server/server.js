@@ -6,7 +6,14 @@ const admin = require("firebase-admin");
 const path = require("path");
 
 // Firebase Admin Initialization
-const serviceAccount = require("./firebase-service-account.json");
+let serviceAccount;
+
+if (process.env.FB_CONFIG) {
+  serviceAccount = JSON.parse(process.env.FB_CONFIG);
+} else {
+  serviceAccount = require("./firebase-service-account.json");
+}
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
