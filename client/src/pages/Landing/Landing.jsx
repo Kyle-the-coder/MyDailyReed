@@ -13,6 +13,7 @@ function LandingPage() {
           title="Trending"
           isVertical={false}
           marginBottom="40px"
+          trending
         />
       </div>
     </div>
