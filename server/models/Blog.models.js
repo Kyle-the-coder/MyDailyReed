@@ -17,7 +17,8 @@ const BlogInfoSchema = new mongoose.Schema({
   author: { type: String },
   readTime: { type: String },
   datePosted: { type: Date, default: Date.now, required: true },
-  likes: { type: Number, default: 0 },
+  likes: { type: [String], default: [] },
+
   comments: [
     {
       name: String,

@@ -15,7 +15,6 @@ export function SbTitle({
   description,
   redirectLink,
 }) {
-  console.log("desc", description);
   return (
     <div className="sb-title-main-container charcoal-bg white-text">
       <h1 className="sb-title  playfair-font">{title}</h1>

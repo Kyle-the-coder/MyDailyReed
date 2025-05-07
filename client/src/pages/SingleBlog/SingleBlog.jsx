@@ -34,7 +34,6 @@ function SingleBlog() {
     fetchBlog();
     scrollToSection("#nav");
   }, [id]);
-  console.log("blog", blog);
 
   return (
     <section id="single-blog" className="display-column">
