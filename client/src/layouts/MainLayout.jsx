@@ -1,9 +1,10 @@
 import { Outlet, useLocation, useNavigation } from "react-router-dom";
 import { Nav } from "../components/Nav/Nav";
 import { Footer } from "../components/Footer/Footer";
-
-import "../styles/main.css";
 import { CommonCat } from "../components/CommonCat/CommonCat";
+import "../styles/main.css";
+import { Loader } from "../components/Loader/Loader";
+
 export function MainLayout() {
   const { state } = useNavigation();
 
@@ -12,7 +13,7 @@ export function MainLayout() {
       {/* Component */}
       <Nav />
       {state === "loading" ? (
-        "loading..."
+        <Loader />
       ) : (
         <div>
           <Outlet />

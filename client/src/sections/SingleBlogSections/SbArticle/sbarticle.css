@@ -1,5 +1,6 @@
 .sb-article-main-container {
   width: 65%;
+  min-height: 1500px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

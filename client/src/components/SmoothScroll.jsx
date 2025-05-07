@@ -26,7 +26,7 @@ export function smoothScrollTo(target) {
 // scrollToSection function
 export function scrollToSection(link) {
   const target = document.querySelector(link);
-  console.log(target);
+
   if (target) {
     smoothScrollTo(target);
   }
