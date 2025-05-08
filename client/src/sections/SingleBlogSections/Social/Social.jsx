@@ -21,7 +21,8 @@ export function Social() {
 
         const user = getAuth().currentUser;
         if (user) {
-          const hasLiked = response.data.likes.includes(user.uid);
+          console.log(response);
+          const hasLiked = response.likes.includes(user.uid);
           setIsLike(hasLiked);
         }
       } catch (err) {

@@ -23,11 +23,8 @@ export const getAuthHeaders = async () => {
 
 // Public route for fetching all blogs
 export const getBlogs = async () => {
-  console.log("API URL:", API_BASE_URL);
   try {
     const response = await axios.get(API_BASE_URL);
-    console.log("res", response.data);
-
     return response.data;
   } catch (error) {
     console.error("Failed to fetch blogs:", error);

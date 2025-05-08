@@ -1,7 +1,10 @@
 import "./sbarticle.css";
+import { Loader } from "../../../components/Loader/Loader";
 import DOMPurify from "dompurify";
 
 export function SbArticle({ content }) {
+  if (!Array.isArray(content)) return <Loader />;
+
   return (
     <div className="sb-article-main-container">
       <div className="sb-article-container">
