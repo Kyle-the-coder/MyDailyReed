@@ -49,25 +49,6 @@ export function BlogsContainer({
     fetchBlogs();
   }, [trending]);
 
-  useEffect(() => {
-    const updateVisibleCount = () => {
-      if (!containerRef.current) return;
-
-      const containerWidth = containerRef.current.offsetWidth;
-
-      // Adjust this logic based on your card size + margin
-      if (containerWidth < 500) setVisibleCount(1);
-      else if (containerWidth < 800) setVisibleCount(2);
-      else if (containerWidth < 1200) setVisibleCount(3);
-      else setVisibleCount(4);
-    };
-
-    updateVisibleCount();
-
-    window.addEventListener("resize", updateVisibleCount);
-    return () => window.removeEventListener("resize", updateVisibleCount);
-  }, []);
-
   return (
     <section className="display-column">
       <div className="title-container">
