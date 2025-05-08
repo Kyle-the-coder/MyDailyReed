@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 
 // Set your base URL
-const API_BASE_URL = import.meta.VITE_API_PROD; // Change to your deployed URL in production
+const API_BASE_URL = "https://mydailyreed.web.app/api/blogs"; // Change to your deployed URL in production
 
 // Function to get authentication headers if user is signed in
 export const getAuthHeaders = async () => {
@@ -25,7 +25,7 @@ export const getAuthHeaders = async () => {
 export const getBlogs = async () => {
   try {
     const response = await axios.get(API_BASE_URL);
-    console.log("res", response.data); // No need for auth headers here
+    console.log("res", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch blogs:", error);
