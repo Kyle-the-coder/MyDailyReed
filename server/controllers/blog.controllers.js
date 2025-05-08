@@ -2,9 +2,9 @@ const Blog = require("../models/blog.models");
 
 //Find All
 const findAll = async (req, res) => {
+  console.log("request made");
   try {
     const results = await Blog.find();
-    console.log(results);
     res.json(results);
   } catch (err) {
     res.status(400).json({ message: "No blogs found", err });
