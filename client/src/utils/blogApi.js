@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 
 // Set your base URL
-const API_BASE_URL = import.meta.env.VITE_API; // Change to your deployed URL in production
+const API_BASE_URL = import.meta.VITE_API_PROD; // Change to your deployed URL in production
 
 // Function to get authentication headers if user is signed in
 export const getAuthHeaders = async () => {

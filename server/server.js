@@ -25,11 +25,18 @@ const port = 8000;
 // CORS setup
 const allowedOrigins = ["http://localhost:5173", "https://mydailyreed.web.app"];
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    console.log(allowedOrigins);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 };
-console.log(process.env.CORS_ALLOWED_ORIGIN);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
