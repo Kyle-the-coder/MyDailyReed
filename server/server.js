@@ -26,7 +26,7 @@ const port = 8000;
 const allowedOrigins = ["http://localhost:5173", "https://mydailyreed.web.app"];
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log(allowedOrigins);
+    console.log(allowedOrigins, "call");
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
