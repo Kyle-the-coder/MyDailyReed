@@ -1,8 +1,9 @@
 [build]
   functions = "netlify/functions"
-  publish = "dist" 
+  publish   = "../client/dist"  # relative to /server
+
 [[redirects]]
-  from   = "/api/*"
-  to     = "/.netlify/functions/server/:splat"
+  from = "/api/*"
+  to = "/.netlify/functions/server/:splat"
   status = 200
-  force  = true
+  force = true

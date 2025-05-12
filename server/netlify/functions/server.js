@@ -1,6 +1,6 @@
 const serverless = require("serverless-http");
-const app = require("../../server/app");
-const connectDB = require("../../server/config/mongoose.config");
+const app = require("../../app");
+const connectDB = require("../../config/mongoose.config");
 
 // Export a handler that ensures DB connection
 const handler = serverless(async (req, res) => {
