@@ -7,6 +7,6 @@
   from = "/api/*"
   to = "/.netlify/functions/server/:splat"
   status = 200
-
-[functions]
-  timeout = 30
+  
+[functions."server"]
+  included_files = ["firebase-service-account.json"]
