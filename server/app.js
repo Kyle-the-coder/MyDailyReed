@@ -27,6 +27,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:8888",
   "https://mydailyreed.web.app",
+  "https://mydailyreed.netlify.app",
 ];
 const corsOptions = {
   origin: function (origin, callback) {
