@@ -12,9 +12,8 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_CONNECT, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      keepAlive: true, // 🔑 Helps with serverless stability
-      serverSelectionTimeoutMS: 10000, // Optional: fail fast if unreachable
-      socketTimeoutMS: 45000, // Optional: maintain active socket
+      serverSelectionTimeoutMS: 10000, // Fail fast if DB unreachable
+      socketTimeoutMS: 45000, // Socket timeout
     });
 
     isConnected = true;
