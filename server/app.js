@@ -31,7 +31,7 @@ const allowedOrigins = [
 ];
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log("Origin request:", origin);
+    console.log("CORS request from:", origin); // Will show in Netlify function logs
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -42,6 +42,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json());
