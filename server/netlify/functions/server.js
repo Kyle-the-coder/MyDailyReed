@@ -2,19 +2,21 @@ const serverless = require("serverless-http");
 const connectDB = require("../../config/mongoose.config");
 const app = require("../../app");
 
+let isConnected = false;
+
 console.log("Netlify function cold start", new Date().toISOString());
 
-module.exports.handler = serverless(async (req, res) => {
-  console.log("➡️ Netlify Function Invoked");
+(async () => {
   try {
-    await connectDB();
-    console.log("✅ DB connected");
-    return app(req, res);
+    if (!isConnected) {
+      console.log("➡️ Connecting to DB...");
+      await connectDB();
+      isConnected = true;
+      console.log("✅ DB connected");
+    }
   } catch (err) {
-    console.error("❌ Server crashed", err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal Server Error" }),
-    };
+    console.error("❌ DB Connection Failed", err);
   }
-});
+})();
+
+module.exports.handler = serverless(app);
