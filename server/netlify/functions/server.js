@@ -1,16 +1,14 @@
 const serverless = require("serverless-http");
-const app = require("../../app");
+const express = require("express");
 const connectDB = require("../../config/mongoose.config");
+const app = express();
+const coreApp = require("../../app");
 
-let isConnected = false;
+// Mount the core app at the Netlify Functions path
+app.use("/.netlify/functions/server", coreApp);
 
-const handler = serverless(async (req, res) => {
-  if (!isConnected) {
-    console.log("we connected");
-    await connectDB();
-    isConnected = true;
-  }
+// Wrap with serverless and ensure DB connects
+module.exports.handler = serverless(async (req, res) => {
+  await connectDB();
   return app(req, res);
 });
-
-module.exports.handler = handler;

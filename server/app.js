@@ -1,11 +1,11 @@
 const express = require("express");
 require("dotenv").config({ path: "./.env" });
-// const connectDB = require("./config/mongoose.config");
 const cors = require("cors");
 const admin = require("firebase-admin");
 const path = require("path");
 
-// Firebase Admin Initialization
+const blogRoutes = require("./routes/blog.routes");
+
 let serviceAccount;
 
 if (process.env.FB_CONFIG) {
@@ -20,10 +20,13 @@ admin.initializeApp({
 });
 
 const app = express();
-const port = 8000;
 
 // CORS setup
-const allowedOrigins = ["http://localhost:8888", "https://mydailyreed.web.app"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:8888",
+  "https://mydailyreed.web.app",
+];
 const corsOptions = {
   origin: function (origin, callback) {
     console.log(allowedOrigins, "call");
@@ -37,27 +40,13 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// Route setup (NO global auth middleware here)
-const blogRoutes = require("./routes/blog.routes");
-app.use("api/blogs", blogRoutes);
-
-// Start server
-// const startServer = async () => {
-//   try {
-//     await connectDB();
-//     app.listen(port, () => {
-//       console.log(`Server is running on port ${port}`);
-//     });
-//   } catch (error) {
-//     console.error("Failed to start server:", error);
-//   }
-// };
-
-// startServer();
+// Mount normal routes (no Netlify prefix here)
+app.use("/blogs", blogRoutes);
 
 module.exports = app;
