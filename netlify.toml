@@ -7,3 +7,6 @@
   from = "/api/*"
   to = "/.netlify/functions/server/:splat"
   status = 200
+
+[functions]
+  timeout = 30
