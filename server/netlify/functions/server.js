@@ -2,10 +2,15 @@ const serverless = require("serverless-http");
 const app = require("../../app");
 const connectDB = require("../../config/mongoose.config");
 
-// Export a handler that ensures DB connection
+let isConnected = false;
+
 const handler = serverless(async (req, res) => {
-  await connectDB();
+  if (!isConnected) {
+    console.log("we connected");
+    await connectDB();
+    isConnected = true;
+  }
   return app(req, res);
 });
 
-module.exports = { handler };
+module.exports.handler = handler;

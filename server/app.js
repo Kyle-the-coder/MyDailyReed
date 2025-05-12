@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config({ path: "./.env" });
-const connectDB = require("./config/mongoose.config");
+// const connectDB = require("./config/mongoose.config");
 const cors = require("cors");
 const admin = require("firebase-admin");
 const path = require("path");
@@ -23,7 +23,7 @@ const app = express();
 const port = 8000;
 
 // CORS setup
-const allowedOrigins = ["http://localhost:5173", "https://mydailyreed.web.app"];
+const allowedOrigins = ["http://localhost:8888", "https://mydailyreed.web.app"];
 const corsOptions = {
   origin: function (origin, callback) {
     console.log(allowedOrigins, "call");
