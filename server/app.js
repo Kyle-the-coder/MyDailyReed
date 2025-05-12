@@ -44,7 +44,7 @@ app.use(express.static("public"));
 
 // Route setup (NO global auth middleware here)
 const blogRoutes = require("./routes/blog.routes");
-app.use("/api/blogs", blogRoutes);
+app.use("/blogs", blogRoutes);
 
 // Start server
 // const startServer = async () => {

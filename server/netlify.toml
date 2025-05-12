@@ -2,7 +2,7 @@
   functions = "netlify/functions"
   publish = "dist" 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/server/:splat"
+  from   = "/api/*"
+  to     = "/.netlify/functions/server/:splat"
   status = 200
   force  = true
