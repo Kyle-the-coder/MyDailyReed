@@ -10,6 +10,11 @@ let serviceAccount;
 
 if (process.env.FB_CONFIG) {
   serviceAccount = JSON.parse(process.env.FB_CONFIG);
+  console.log(
+    "🔐 Firebase initialized with email:",
+    serviceAccount.client_email
+  );
+
   serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, "\n");
 } else {
   console.error("FB_Config is missing");
