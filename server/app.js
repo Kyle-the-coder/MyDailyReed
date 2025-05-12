@@ -47,15 +47,17 @@ const blogRoutes = require("./routes/blog.routes");
 app.use("/api/blogs", blogRoutes);
 
 // Start server
-const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
-  } catch (error) {
-    console.error("Failed to start server:", error);
-  }
-};
+// const startServer = async () => {
+//   try {
+//     await connectDB();
+//     app.listen(port, () => {
+//       console.log(`Server is running on port ${port}`);
+//     });
+//   } catch (error) {
+//     console.error("Failed to start server:", error);
+//   }
+// };
 
-startServer();
+// startServer();
+
+module.exports = app;
