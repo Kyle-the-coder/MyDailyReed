@@ -1,5 +1,5 @@
 [build]
-  base = "server"
+  base = "."
   functions = "netlify/functions"
   publish = "client/build"
 
