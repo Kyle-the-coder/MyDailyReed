@@ -1,6 +1,6 @@
 [build]
   base = "."
-  functions = "netlify/functions"
+  functions = "server/netlify/functions"
   publish = "client/build"
 
 [[redirects]]
