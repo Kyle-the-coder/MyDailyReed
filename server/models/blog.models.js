@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const BlogInfoSchema = new mongoose.Schema({
   title: { type: String },
   subTitle: String,
-  part: String,
+  partUrl: String,
+  partName: String,
   imgUrl: String,
   content: [
     {
