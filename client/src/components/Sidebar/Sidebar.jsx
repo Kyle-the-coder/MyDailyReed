@@ -1,10 +1,34 @@
+// Sidebar.jsx
+import { useEffect, useRef, useState } from "react";
 import { BlogsContainer } from "../BlogsContainer/BlogsContainer";
+import { useLocation } from "react-router-dom";
 import "./sidebar.css";
 
 export function Sidebar({ author }) {
+  const containerRef = useRef(null);
+  const [sidebarHeight, setSidebarHeight] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (containerRef.current) {
+        setSidebarHeight(containerRef.current.offsetHeight);
+      }
+    };
+
+    setTimeout(() => {
+      updateHeight();
+    }, [500]);
+
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [location]);
+  console.log("height", sidebarHeight);
+
   return (
-    <div className="sidebar-main-container silver-bg">
-      <BlogsContainer title="Latest" marginBottom="20px" />
+    <div ref={containerRef} className="sidebar-main-container silver-bg">
+      <BlogsContainer title="Latest" maxCount={3} />
+      <BlogsContainer title="Trending" maxCount={2} />
     </div>
   );
 }

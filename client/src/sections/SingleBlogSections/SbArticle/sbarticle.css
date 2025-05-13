@@ -1,9 +1,9 @@
 .sb-article-main-container {
   width: 65%;
-  min-height: 1500px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  min-height: 1950px;
 }
 
 .sb-article-container {
@@ -19,6 +19,7 @@
   .sb-article-main-container {
     flex-direction: column;
     width: 100%;
+    min-height: 300px;
   }
   .sb-article-container {
     width: 100%;

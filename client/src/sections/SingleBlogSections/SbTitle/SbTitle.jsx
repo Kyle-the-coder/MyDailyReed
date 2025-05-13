@@ -14,7 +14,6 @@ export function SbTitle({
   description,
   redirectLink,
 }) {
-  // Convert Firestore Timestamp to Date if needed
   const formattedDate = datePosted?.toDate
     ? datePosted.toDate().toLocaleDateString(undefined, {
         year: "numeric",

@@ -60,7 +60,6 @@ function SingleBlog() {
                 <SbArticle content={blog.content} />
               </div>
 
-              <Social />
               <Sidebar author="My Daily Reed" />
             </>
           ) : (
@@ -83,7 +82,6 @@ function SingleBlog() {
                 <SbArticle content={blog.content} />
                 <Sidebar author="My Daily Reed" />
               </div>
-              <Social />
             </>
           )}
         </>

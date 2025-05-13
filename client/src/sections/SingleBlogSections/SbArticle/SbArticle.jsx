@@ -1,6 +1,7 @@
 import "./sbarticle.css";
 import { Loader } from "../../../components/Loader/Loader";
 import DOMPurify from "dompurify";
+import { Social } from "../Social/Social";
 
 export function SbArticle({ content }) {
   if (!Array.isArray(content)) return <Loader />;
@@ -36,6 +37,7 @@ export function SbArticle({ content }) {
 
             return null;
           })}
+        <Social />
       </div>
     </div>
   );

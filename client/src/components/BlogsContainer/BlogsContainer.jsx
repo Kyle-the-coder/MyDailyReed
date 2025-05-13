@@ -5,19 +5,20 @@ import { scrollToSection } from "../SmoothScroll.jsx";
 import { PostLoader } from "../Loader/PostLoader/PostLoader.jsx";
 import articleImg from "../../assets/placeholders/Artc1.png";
 import "./blogscontainer.css";
-
 export function BlogsContainer({
   isVertical = false,
   title,
   height,
   marginBottom,
   trending = false,
+  maxCount, // NEW
 }) {
   const [blogs, setBlogs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [isLoading, setIsLoading] = useState(true); // default fallback
   const containerRef = useRef(null);
   const navigate = useNavigate();
+  const visibleCount = maxCount ?? 4;
+  console.log("max", maxCount);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -26,8 +27,8 @@ export function BlogsContainer({
         const data = await getBlogs();
 
         const hasLikes = data.some((blog) => typeof blog.likes === "number");
-
         let sortedBlogs;
+
         if (trending && hasLikes) {
           sortedBlogs = [...data].sort(
             (a, b) => (b.likes || 0) - (a.likes || 0)

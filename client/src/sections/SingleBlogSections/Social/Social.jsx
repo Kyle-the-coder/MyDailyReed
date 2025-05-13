@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { WordButton } from "../../../components/Buttons/WordButton/WordButton";
-import { getBlogById, updateBlog } from "../../../utils/blogApi";
+import {
+  getBlogById,
+  likeBlog,
+  removeLikeBlog,
+  addCommentToBlog,
+} from "../../../utils/blogApi";
 import likeFilled from "../../../assets/icons/likeFilled.png";
 import likeEmpty from "../../../assets/icons/likeEmpty.png";
 import "./social.css";
@@ -20,10 +25,8 @@ export function Social() {
         setBlog(response);
 
         const user = getAuth().currentUser;
-        if (user) {
-          console.log(response);
-          const hasLiked = response.likes.includes(user.uid);
-          setIsLike(hasLiked);
+        if (user && response.likes?.includes(user.uid)) {
+          setIsLike(true);
         }
       } catch (err) {
         console.error("Failed to fetch blog:", err);
@@ -34,39 +37,32 @@ export function Social() {
 
   const handleLikeToggle = async () => {
     if (!blog) return;
-
     const user = getAuth().currentUser;
-    if (!user) return; // maybe prompt login
-
-    const uid = user.uid;
-    const hasLiked = blog.likes.includes(uid);
-
-    const updatedLikes = hasLiked
-      ? blog.likes.filter((id) => id !== uid)
-      : [...blog.likes, uid];
-
-    const updatedBlog = { ...blog, likes: updatedLikes };
+    if (!user) return;
 
     try {
-      await updateBlog(id, updatedBlog);
+      if (isLike) {
+        await removeLikeBlog(id);
+      } else {
+        await likeBlog(id);
+      }
+
+      // Refresh the blog data to reflect the latest like state
+      const updatedBlog = await getBlogById(id);
       setBlog(updatedBlog);
-      setIsLike(!hasLiked);
+      setIsLike(!isLike);
     } catch (err) {
-      console.error("Failed to update likes:", err);
+      console.error("Failed to toggle like:", err);
     }
   };
 
   const handleCommentSubmit = async () => {
     if (!commentText.trim() || !blog) return;
 
-    const updatedComments = [
-      ...blog.comments,
-      { name: "Anonymous", text: commentText },
-    ];
-    const updatedBlog = { ...blog, comments: updatedComments };
-
     try {
-      await updateBlog(id, updatedBlog);
+      await addCommentToBlog(id, commentText, "Anonymous");
+
+      const updatedBlog = await getBlogById(id);
       setBlog(updatedBlog);
       setCommentText("");
     } catch (err) {
@@ -87,7 +83,7 @@ export function Social() {
                 onClick={handleLikeToggle}
                 alt="like button"
               />
-              <p>{blog.likes.length || 0} likes</p>
+              <p>{blog.likes?.length || 0} likes</p>
             </div>
             <h1 className="outfit-font">Leave a like</h1>
           </div>
@@ -125,7 +121,7 @@ export function Social() {
             <h1 className="commenter-name outfit-font">
               {comment.name || "Reader"}:
             </h1>
-            <p className="comment outfit-font">{comment.text}</p>
+            <p className="comment outfit-font">{comment.comment}</p>
           </div>
         ))}
       </div>

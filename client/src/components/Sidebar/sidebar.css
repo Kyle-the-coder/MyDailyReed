@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: flex-start;
   padding: 10px;
+  min-height: 450px;
 }
 
 .sidebar-title-container {
