@@ -1,8 +1,8 @@
 import { uploadImageToFirebase } from "../../utils/uploadImage";
 import { useState } from "react";
-import { postBlog } from "../../utils/blogApi";
 import { PostLoader } from "../../components/Loader/PostLoader/PostLoader";
 import TiptapEditor from "../../components/TipTap/TiptapEditor";
+import { postBlogToFirestore } from "../../utils/blogApi";
 import menu from "../../assets/icons/formIcons/menu.png";
 import submit from "../../assets/icons/formIcons/check.png";
 import description from "../../assets/icons/formIcons/description.png";
@@ -14,7 +14,6 @@ import "./createblog.css";
 export function CreateBlog() {
   const [mainImagePreview, setMainImagePreview] = useState(null);
   const [imagePreviews, setImagePreviews] = useState({});
-
   const [isLoading, setIsLoading] = useState(false);
   const [expandIcons, setExpandIcons] = useState(false);
   const [formArray, setFormArray] = useState([]);
@@ -22,7 +21,6 @@ export function CreateBlog() {
   const [author, setAuthor] = useState(null);
   const [readTime, setReadTime] = useState(null);
   const [categories, setCategories] = useState([]);
-
   const [subTitle, setSubTitle] = useState(null);
   const [part, setPart] = useState(null);
 
@@ -111,7 +109,6 @@ export function CreateBlog() {
             )}
           </div>
         );
-
       default:
         return null;
     }
@@ -124,13 +121,11 @@ export function CreateBlog() {
     let photoUrl = null;
 
     try {
-      // Upload main blog photo
       const photoInput = document.querySelector('input[type="file"]');
       if (photoInput?.files[0]) {
         photoUrl = await uploadImageToFirebase(photoInput.files[0]);
       }
 
-      // Upload images inside formArray (for content blocks)
       const processedContent = await Promise.all(
         formArray.map(async (field) => {
           if (field.type === "Image" && field.value instanceof File) {
@@ -144,20 +139,22 @@ export function CreateBlog() {
       const blogPayload = {
         title,
         subTitle,
-        part,
+        partName: part,
+        partUrl: part ? `part-${part}` : null,
         author,
         readTime,
         imgUrl: photoUrl,
-        categories,
         content: processedContent,
+        categories,
       };
 
-      await postBlog(blogPayload);
-      alert("Blog created!");
-      setIsLoading(false);
+      const blogId = await postBlogToFirestore(blogPayload);
+      alert(`Blog created successfully! ID: ${blogId}`);
     } catch (error) {
       console.error("Error submitting blog:", error);
       alert("Failed to submit blog");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -213,10 +210,9 @@ export function CreateBlog() {
           <div className="input-container">
             <label className="input-label outfit-font">Categories:</label>
             <input
-              style={{ fontSize: "1.3rem" }}
               className="input playfair-font"
               type="text"
-              placeholder="e.g. Monday Devotion, Tuesday Article, etc"
+              placeholder="e.g. Monday Devotion, Tuesday Article"
               onChange={(e) =>
                 setCategories(
                   e.target.value
@@ -229,13 +225,11 @@ export function CreateBlog() {
             {categories.length > 0 && (
               <div className="category-container outfit-font">
                 Categories:
-                {categories.map((cat, index) => {
-                  return (
-                    <div key={cat} className="cat silver-bg">
-                      {cat}
-                    </div>
-                  );
-                })}
+                {categories.map((cat) => (
+                  <div key={cat} className="cat silver-bg">
+                    {cat}
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -267,7 +261,6 @@ export function CreateBlog() {
 
           <div className="form-array-container">
             {formArray.map((field, index) => renderFormField(field, index))}
-
             <div className="add-to-array">
               <img
                 className="form-icon menu-icon off-white-bg"
@@ -279,15 +272,12 @@ export function CreateBlog() {
                   <PostLoader />
                 </div>
               ) : (
-                <>
-                  <img
-                    className="form-icon submit-icon off-white-bg"
-                    src={submit}
-                    onClick={(e) => handleSubmit(e)}
-                  />
-                </>
+                <img
+                  className="form-icon submit-icon off-white-bg"
+                  src={submit}
+                  onClick={handleSubmit}
+                />
               )}
-
               <div className={`expanded-icons ${expandIcons ? "show" : ""}`}>
                 {formIconArray.map((icon, index) => (
                   <img

@@ -10,13 +10,12 @@ import {
   arrayUnion,
   arrayRemove,
   Timestamp,
+  serverTimestamp,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebaseConfig";
-import { db } from "../firebase/firebaseConfig";
+import { db } from "../firebaseConfig";
 
-initializeApp(firebaseConfig);
 const auth = getAuth();
 
 const blogsCollection = collection(db, "blogs");
@@ -40,19 +39,18 @@ export const getBlogById = async (id) => {
 };
 
 // ✅ Create a new blog (requires auth)
-export const postBlog = async (blogData) => {
+export const postBlogToFirestore = async (blogData) => {
   const user = auth.currentUser;
-  if (!user) throw new Error("Not authenticated");
+  if (!user) throw new Error("User not authenticated");
 
-  const newBlog = {
+  const docRef = await addDoc(collection(db, "blogs"), {
     ...blogData,
-    datePosted: new Date(),
     likes: [],
     comments: [],
-  };
+    datePosted: serverTimestamp(),
+  });
 
-  const docRef = await addDoc(blogsCollection, newBlog);
-  return { id: docRef.id, ...newBlog };
+  return docRef.id;
 };
 
 // ✅ Update blog

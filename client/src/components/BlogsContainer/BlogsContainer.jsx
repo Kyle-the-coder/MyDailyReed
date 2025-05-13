@@ -23,27 +23,28 @@ export function BlogsContainer({
     const fetchBlogs = async () => {
       try {
         setIsLoading(true);
-        const response = await getBlogs();
-        const data = response;
+        const data = await getBlogs();
 
         const hasLikes = data.some((blog) => typeof blog.likes === "number");
 
         let sortedBlogs;
-
         if (trending && hasLikes) {
           sortedBlogs = [...data].sort(
             (a, b) => (b.likes || 0) - (a.likes || 0)
           );
         } else {
-          sortedBlogs = [...data].sort(
-            (a, b) => new Date(b.datePosted) - new Date(a.datePosted)
-          );
+          sortedBlogs = [...data].sort((a, b) => {
+            const dateA = a.datePosted?.toDate?.() || new Date(0);
+            const dateB = b.datePosted?.toDate?.() || new Date(0);
+            return dateB - dateA;
+          });
         }
 
         setBlogs(sortedBlogs);
-        setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -64,37 +65,32 @@ export function BlogsContainer({
         }`}
       >
         {isLoading ? (
-          <>
-            <PostLoader />
-          </>
+          <PostLoader />
         ) : (
-          <>
-            {" "}
-            {blogs.slice(0, visibleCount).map((blog, index) => (
-              <div
-                key={blog._id || index}
-                className="blog-info-container"
-                style={{ marginBottom: marginBottom }}
-                onClick={() => {
-                  navigate(`/singleBlog/${blog._id}`);
-                  scrollToSection("#nav");
-                }}
-              >
-                <img
-                  src={blog.imgUrl || articleImg}
-                  style={{ height: height }}
-                  alt={blog.title}
-                />
-                <p className="playfair-thin-font">
-                  {blog.categories?.[0] || "Uncategorized"}
-                </p>
-                <h3>{blog.title}</h3>
-                <p className="playfair-thin-font silver-text">
-                  {blog.author || "Unknown Author"}
-                </p>
-              </div>
-            ))}
-          </>
+          blogs.slice(0, visibleCount).map((blog, index) => (
+            <div
+              key={blog.id || index}
+              className="blog-info-container"
+              style={{ marginBottom: marginBottom }}
+              onClick={() => {
+                navigate(`/singleBlog/${blog.id}`);
+                scrollToSection("#nav");
+              }}
+            >
+              <img
+                src={blog.imgUrl || articleImg}
+                alt={blog.title || "Blog image"}
+                style={{ height: height }}
+              />
+              <p className="playfair-thin-font">
+                {blog.categories?.[0] || "Uncategorized"}
+              </p>
+              <h3>{blog.title || "Untitled"}</h3>
+              <p className="playfair-thin-font silver-text">
+                {blog.author || "Unknown Author"}
+              </p>
+            </div>
+          ))
         )}
       </div>
     </section>
