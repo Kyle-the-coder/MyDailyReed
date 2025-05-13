@@ -11,6 +11,10 @@
   width: 90%;
 }
 
+.sb-article-section {
+  padding: 40px 0px;
+}
+
 .sb-article-container p {
   margin-bottom: 20px;
 }

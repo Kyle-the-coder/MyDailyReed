@@ -28,10 +28,10 @@ export function SbTitle({
 
   return (
     <div className="sb-title-main-container charcoal-bg white-text">
-      <h1 className="sb-title playfair-font">{title}</h1>
-      <h3 className="sb-title playfair-font" style={{ marginBottom: "40px" }}>
-        {subTitle}
-      </h3>
+      <p className="sb-sub outfit-font">{subTitle}</p>
+      <h1 className="sb-title playfair-font" style={{ marginBottom: "40px" }}>
+        {title}
+      </h1>
       {part && <h6 className="sb-part playfair-font">Part 2</h6>}
 
       <img src={titleImg || placeholder} alt="Blog banner" />

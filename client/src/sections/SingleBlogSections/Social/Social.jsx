@@ -1,3 +1,4 @@
+import react from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
@@ -116,14 +117,16 @@ export function Social() {
 
       <div className="comment-container">
         <h1 className="outfit-font">Comments:</h1>
-        {blog.comments?.map((comment, idx) => (
-          <div key={idx} className="comments silver-bg">
-            <h1 className="commenter-name outfit-font">
-              {comment.name || "Reader"}:
-            </h1>
-            <p className="comment outfit-font">{comment.comment}</p>
-          </div>
-        ))}
+        <div className="comments silver-bg">
+          {blog.comments?.map((comment, idx) => (
+            <react.Fragment key={idx}>
+              <h1 className="commenter-name outfit-font">
+                {comment.name || "Reader"}:
+              </h1>
+              <p className="comment outfit-font">{comment.comment}</p>
+            </react.Fragment>
+          ))}
+        </div>
       </div>
     </section>
   );
