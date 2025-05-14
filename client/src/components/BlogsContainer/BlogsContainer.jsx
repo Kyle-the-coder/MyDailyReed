@@ -86,7 +86,10 @@ export function BlogsContainer({
               <p className="playfair-thin-font">
                 {blog.categories?.[0] || "Uncategorized"}
               </p>
-              <h3>{blog.title || "Untitled"}</h3>
+              <h3>
+                {blog.title || "Untitled"}{" "}
+                {blog.part ? `Part ${blog.part}` : ""}
+              </h3>
               <p className="playfair-thin-font silver-text">
                 {blog.author || "Unknown Author"}
               </p>

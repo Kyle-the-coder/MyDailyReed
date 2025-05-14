@@ -35,7 +35,14 @@ export function SbTitle({
       <h1 className="sb-title playfair-font" style={{ marginBottom: "40px" }}>
         {title}
       </h1>
-      {part && <h6 className="sb-part outfit-font">Part: {part}</h6>}
+      {part && (
+        <h6
+          className="sb-part silver-bg outfit-font"
+          style={{ padding: "5px 20px", borderRadius: "5rem", color: "black" }}
+        >
+          Part: {part}
+        </h6>
+      )}
 
       <img src={titleImg || placeholder} alt="Blog banner" />
 
