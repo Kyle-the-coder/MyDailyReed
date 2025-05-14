@@ -50,6 +50,8 @@ function SingleBlog() {
                 readTime={blog.readTime}
                 titleImg={blog.imgUrl}
                 part={blog.part}
+                partName={blog.partName}
+                partUrl={blog.partUrl}
                 description={
                   blog.content.find((item) => item.type === "Description")
                     ?.value
@@ -71,12 +73,13 @@ function SingleBlog() {
                 datePosted={blog.datePosted}
                 readTime={blog.readTime}
                 titleImg={blog.imgUrl}
+                partName={blog.partName}
+                partUrl={blog.partUrl}
                 part={blog.part}
                 description={
                   blog.content.find((item) => item.type === "Description")
                     ?.value
                 }
-                redirectLink={blog.redirectLink}
               />
               <div className="flex-between padding-40 pos-relative">
                 <SbArticle content={blog.content} />

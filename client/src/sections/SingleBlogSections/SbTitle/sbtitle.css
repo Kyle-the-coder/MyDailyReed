@@ -28,7 +28,7 @@
 .sb-part {
   margin-bottom: 40px;
   text-align: center;
-  font-size: clamp(3rem, 4vw, 5rem);
+  font-size: clamp(1.5rem, 2vw, 2rem);
 }
 
 .sb-title-blerb {

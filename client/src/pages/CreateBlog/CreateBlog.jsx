@@ -22,6 +22,7 @@ export function CreateBlog() {
   const [readTime, setReadTime] = useState(null);
   const [categories, setCategories] = useState([]);
   const [subTitle, setSubTitle] = useState(null);
+
   const [part, setPart] = useState(null);
 
   const formIconArray = [
@@ -32,13 +33,29 @@ export function CreateBlog() {
   ];
 
   const handleAddField = (type) => {
-    setFormArray((prev) => [...prev, { type, value: "" }]);
+    if (type === "Redirect") {
+      setFormArray((prev) => [
+        ...prev,
+        { type, value: { partName: "", partUrl: "" } },
+      ]);
+    } else {
+      setFormArray((prev) => [...prev, { type, value: "" }]);
+    }
     setExpandIcons(false);
   };
 
-  const handleChange = (index, content) => {
+  const handleChange = (index, content, key = null) => {
     const updated = [...formArray];
-    updated[index].value = content;
+
+    if (key && typeof updated[index].value === "object") {
+      updated[index].value = {
+        ...updated[index].value,
+        [key]: content,
+      };
+    } else {
+      updated[index].value = content;
+    }
+
     setFormArray(updated);
 
     if (updated[index].type === "Image" && content instanceof File) {
@@ -46,7 +63,7 @@ export function CreateBlog() {
       setImagePreviews((prev) => ({ ...prev, [index]: previewURL }));
     }
   };
-
+  console.log(formArray);
   const renderFormField = (field, index) => {
     switch (field.type) {
       case "Description":
@@ -69,19 +86,30 @@ export function CreateBlog() {
       case "Redirect":
         return (
           <div
-            style={{ marginBottom: "100px" }}
+            style={{ marginBottom: "100px", padding: "30px 3%" }}
             key={index}
             className="display-column"
           >
-            <label className="input-label outfit-font">Redirect URL</label>
+            <label className="input-label outfit-font">Redirect Name</label>
+            <input
+              className="input"
+              type="text"
+              value={field.value.name}
+              placeholder="Part 3, or Part 1"
+              style={{ marginBottom: "30px", padding: "10px 20px" }}
+              onChange={(e) => handleChange(index, e.target.value, "partName")}
+            />
+            <label className="input-label outfit-font">Redirect Url</label>
             <input
               className="input"
               type="url"
-              value={field.value}
-              onChange={(e) => handleChange(index, e.target.value)}
+              style={{ padding: "10px 20px" }}
+              value={field.value.url}
+              onChange={(e) => handleChange(index, e.target.value, "partUrl")}
             />
           </div>
         );
+
       case "Image":
         return (
           <div
@@ -135,12 +163,18 @@ export function CreateBlog() {
           return field;
         })
       );
+      const redirectField = formArray.find(
+        (field) => field.type === "Redirect"
+      );
+      const partName = redirectField?.value?.partName || null;
+      const partUrl = redirectField?.value?.partUrl || null;
 
       const blogPayload = {
         title,
         subTitle,
-        partName: part,
-        partUrl: part ? `part-${part}` : null,
+        partName,
+        partUrl,
+        part,
         author,
         readTime,
         imgUrl: photoUrl,
@@ -173,7 +207,7 @@ export function CreateBlog() {
           </div>
           <div className="input-container">
             <label className="input-label outfit-font">
-              Sub-Title (optional):
+              Category Title (optional):
             </label>
             <input
               className="input playfair-font"

@@ -2,6 +2,7 @@ import placeholder from "../../../assets/placeholders/Artc1.png";
 import { WordButton } from "../../../components/Buttons/WordButton/WordButton";
 import DOMPurify from "dompurify";
 import "./sbtitle.css";
+import { useNavigate } from "react-router-dom";
 
 export function SbTitle({
   title,
@@ -11,9 +12,11 @@ export function SbTitle({
   readTime,
   titleImg,
   part,
+  partUrl,
+  partName,
   description,
-  redirectLink,
 }) {
+  const navigate = useNavigate();
   const formattedDate = datePosted?.toDate
     ? datePosted.toDate().toLocaleDateString(undefined, {
         year: "numeric",
@@ -32,7 +35,7 @@ export function SbTitle({
       <h1 className="sb-title playfair-font" style={{ marginBottom: "40px" }}>
         {title}
       </h1>
-      {part && <h6 className="sb-part playfair-font">Part 2</h6>}
+      {part && <h6 className="sb-part outfit-font">Part: {part}</h6>}
 
       <img src={titleImg || placeholder} alt="Blog banner" />
 
@@ -43,7 +46,12 @@ export function SbTitle({
         }}
       />
 
-      {redirectLink && <WordButton text="Part 1" />}
+      {partName && (
+        <WordButton
+          onClick={() => (window.location.href = partUrl)}
+          text={partName}
+        />
+      )}
 
       <div className="sb-title-info-container">
         <div className="sb-title-info">
