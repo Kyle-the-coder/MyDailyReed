@@ -1,10 +1,13 @@
 import { useEffect, useState, useCallback, act } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { Hamburger } from "../Hamburger/Hamburger";
 import logo from "../../assets/logo/MDRLogoB.png";
 import fb from "../../assets/icons/facebookBlack.png";
 import insta from "../../assets/icons/instagramBlack.png";
 import linked from "../../assets/icons/linkedinBlack.png";
+import arrow from "../../assets/icons/arrow.png";
 import gsap from "gsap";
 import "./nav.css";
 import { scrollToSection } from "../SmoothScroll";
@@ -17,6 +20,10 @@ export function Nav() {
   const [isHamburgerActive, setIsHamburgerActive] = useState(null);
   const [isAnimationActive, setIsAnimtionActive] = useState(null);
   const navigate = useNavigate();
+  //Search States
+  const [searchInput, setSearchInput] = useState("");
+  const [allBlogs, setAllBlogs] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   const links = [
     { linkName: "Home", link: "/" },
@@ -40,6 +47,69 @@ export function Nav() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  //fetch blogs
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "blogs"));
+        const blogs = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setAllBlogs(blogs);
+      } catch (err) {
+        console.error("Error fetching blogs:", err);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  //filter blogs
+  const handleSearch = () => {
+    console.log("searching");
+
+    const trimmed = searchInput.trim().toLowerCase();
+    if (!trimmed) {
+      console.log("nothing");
+      setFilteredBlogs([]);
+      return;
+    }
+
+    const firstChar = trimmed[0];
+    const matchingCategorySet = new Set();
+
+    // Step 1: Find categories that partially match input
+    allBlogs.forEach((blog) => {
+      if (Array.isArray(blog.categories)) {
+        blog.categories.forEach((cat) => {
+          if (cat.toLowerCase().includes(trimmed)) {
+            matchingCategorySet.add(cat.toLowerCase());
+          }
+        });
+      }
+    });
+
+    // Step 2: Filter based on conditions
+    const filtered = allBlogs.filter((blog) => {
+      const title = blog.title?.toLowerCase() || "";
+      const subtitle = blog.subtitle?.toLowerCase() || "";
+      const categories = Array.isArray(blog.categories)
+        ? blog.categories.map((cat) => cat.toLowerCase())
+        : [];
+
+      return (
+        title.includes(trimmed) || // Title matches search input
+        subtitle.includes(trimmed) || // Subtitle matches search input
+        title[0] === firstChar || // First letter of title matches search input
+        categories.some((cat) => cat.includes(trimmed)) || // Category matches search input
+        categories.some((cat) => matchingCategorySet.has(cat)) // Exact category match
+      );
+    });
+
+    setFilteredBlogs(filtered);
+  };
 
   useEffect(() => {
     if (hoverIndex !== null) {
@@ -88,7 +158,8 @@ export function Nav() {
       }
     }
   }
-
+  console.log("filtered", filteredBlogs);
+  console.log("all", allBlogs);
   useEffect(() => {
     if (isHamburgerActive) {
       gsap.from(".navbar-phone-dropdown-container", {
@@ -128,8 +199,36 @@ export function Nav() {
               type="text"
               className="playfair-font"
               placeholder="Quick Search..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
-            <ArrowButton />
+            <button
+              onClick={() => {
+                console.log("Search button clicked!");
+                handleSearch();
+              }}
+              className="arrow-button green-bg"
+              style={{ zIndex: "9" }}
+            >
+              <img src={arrow} />
+            </button>
+            {filteredBlogs.length > 0 && (
+              <div className="search-results-container">
+                {filteredBlogs.map((blog) => (
+                  <div
+                    key={blog.id}
+                    className="search-result"
+                    onClick={() => {
+                      navigate(`/singleBlog/${blog.id}`);
+                      setSearchInput(""); // clear input after navigating
+                      setFilteredBlogs([]);
+                    }}
+                  >
+                    {blog.title} {blog.part && `Part ${blog.part}`}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {isHamburgerActive && (
@@ -160,8 +259,36 @@ export function Nav() {
               type="text"
               className="playfair-font"
               placeholder="Quick Search..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
-            <ArrowButton />
+            <button
+              onClick={() => {
+                console.log("Search button clicked!");
+                handleSearch();
+              }}
+              className="arrow-button green-bg"
+              style={{ zIndex: "9" }}
+            >
+              <img src={arrow} />
+            </button>
+            {filteredBlogs.length > 0 && (
+              <div className="search-results-container">
+                {filteredBlogs.map((blog) => (
+                  <div
+                    key={blog.id}
+                    className="search-result"
+                    onClick={() => {
+                      navigate(`/singleBlog/${blog.id}`);
+                      setSearchInput(""); // clear input after navigating
+                      setFilteredBlogs([]);
+                    }}
+                  >
+                    {blog.title} {blog.part && `Part ${blog.part}`}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <div className="logo-links">
             <img

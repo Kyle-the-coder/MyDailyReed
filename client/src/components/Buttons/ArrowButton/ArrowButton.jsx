@@ -1,9 +1,10 @@
 import arrow from "../../../assets/icons/arrow.png";
 import "./arrowbutton.css";
 
-export function ArrowButton() {
+export function ArrowButton({ onClick }) {
+  console.log("ArrowButton rendered with onClick:", onClick);
   return (
-    <button className="arrow-button green-bg">
+    <button onClick={onClick} className="arrow-button green-bg">
       <img src={arrow} />
     </button>
   );

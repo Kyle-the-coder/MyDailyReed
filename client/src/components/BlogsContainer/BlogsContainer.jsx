@@ -18,7 +18,6 @@ export function BlogsContainer({
   const containerRef = useRef(null);
   const navigate = useNavigate();
   const visibleCount = maxCount ?? 4;
-  console.log("max", maxCount);
 
   useEffect(() => {
     const fetchBlogs = async () => {
