@@ -33,7 +33,14 @@ export function DBDirection() {
         <h1 className="outfit-font">Create a Blog Post</h1>
         <img src={add} />
       </div>
-      <div className="db-direction-container green-bg">
+      <div
+        className="db-direction-container green-bg"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/editDirectory");
+          window.scrollTo(0, 0);
+        }}
+      >
         <h1 className="outfit-font">Edit a Blog Post</h1>
         <img src={edit} />
       </div>

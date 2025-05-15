@@ -158,8 +158,7 @@ export function Nav() {
       }
     }
   }
-  console.log("filtered", filteredBlogs);
-  console.log("all", allBlogs);
+
   useEffect(() => {
     if (isHamburgerActive) {
       gsap.from(".navbar-phone-dropdown-container", {

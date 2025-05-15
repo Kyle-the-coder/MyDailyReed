@@ -27,8 +27,8 @@ export function Sidebar({ author }) {
 
   return (
     <div ref={containerRef} className="sidebar-main-container silver-bg">
-      <BlogsContainer title="Latest" maxCount={3} />
-      <BlogsContainer title="Trending" maxCount={2} />
+      <BlogsContainer nav="singleBlog" title="Latest" maxCount={3} />
+      <BlogsContainer nav="singleBlog" title="Trending" maxCount={2} />
     </div>
   );
 }

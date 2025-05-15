@@ -11,7 +11,8 @@ export function BlogsContainer({
   height,
   marginBottom,
   trending = false,
-  maxCount, // NEW
+  maxCount,
+  nav,
 }) {
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // default fallback
@@ -73,7 +74,7 @@ export function BlogsContainer({
               className="blog-info-container"
               style={{ marginBottom: marginBottom }}
               onClick={() => {
-                navigate(`/singleBlog/${blog.id}`);
+                navigate(`/${nav}/${blog.id}`);
                 scrollToSection("#nav");
               }}
             >

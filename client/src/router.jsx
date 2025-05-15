@@ -8,6 +8,8 @@ import { loginRoute } from "./pages/Login/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { CreateBlog } from "./pages/CreateBlog/CreateBlog";
+import { EditBlog } from "./pages/EditBlog/EditBlog";
+import { EditDirectory } from "./pages/EditDirectory/EditDirectory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +33,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateBlog />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/editBlog",
+        element: (
+          <PrivateRoute>
+            <EditBlog />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/editDirectory",
+        element: (
+          <PrivateRoute>
+            <EditDirectory />
           </PrivateRoute>
         ),
       },
