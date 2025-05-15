@@ -35,32 +35,45 @@ export function EditBlog() {
     { img: article, type: "Article", label: "Article Content" },
     { img: image, type: "Image", label: "Image Upload" },
   ];
+  console.log("hello");
 
   useEffect(() => {
     const fetchBlog = async () => {
       setIsLoading(true);
       console.log("loading");
-      try {
-        const blogRef = doc(db, "blogs", blogId);
-        const docSnap = await getDoc(blogRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setTitle(data.title || "");
-          setSubTitle(data.subTitle || "");
-          setAuthor(data.author || "");
-          setReadTime(data.readTime || "");
-          setPart(data.part || "");
-          setCategories(data.categories || []);
-          setImgUrl(data.imgUrl || null);
-          setFormArray(data.content || []);
-          setMainImagePreview(data.imgUrl || null);
-        } else {
-          console.error("Blog not found.");
-        }
-      } catch (error) {
-        console.error("Error loading blog:", error);
-      } finally {
-        setIsLoading(false);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const sanitizedContent = Array.isArray(data.content)
+          ? data.content.map((field) => {
+              if (
+                typeof field.value === "string" ||
+                (field.type === "Redirect" &&
+                  typeof field.value === "object" &&
+                  field.value !== null)
+              ) {
+                return field;
+              }
+
+              // Fix malformed content
+              return {
+                ...field,
+                value:
+                  field.type === "Redirect"
+                    ? { partName: "", partUrl: "" }
+                    : "",
+              };
+            })
+          : [];
+
+        setTitle(data.title || "");
+        setSubTitle(data.subTitle || "");
+        setAuthor(data.author || "");
+        setReadTime(data.readTime || "");
+        setPart(data.part || "");
+        setCategories(data.categories || []);
+        setImgUrl(data.imgUrl || null);
+        setFormArray(sanitizedContent);
+        setMainImagePreview(data.imgUrl || null);
       }
     };
 

@@ -172,14 +172,13 @@ export function CreateBlog() {
       const blogPayload = {
         title,
         subTitle,
-        partName,
-        partUrl,
-        part,
         author,
         readTime,
-        imgUrl: photoUrl,
-        content: processedContent,
+        part,
         categories,
+        imgUrl,
+        content: formArray,
+        datePosted: serverTimestamp(),
       };
 
       const blogId = await postBlogToFirestore(blogPayload);

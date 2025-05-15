@@ -50,8 +50,14 @@ function SingleBlog() {
                 readTime={blog.readTime}
                 titleImg={blog.imgUrl}
                 part={blog.part}
-                partName={blog.partName}
-                partUrl={blog.partUrl}
+                partName={
+                  blog?.content.find((item) => item.type === "Redirect")?.value
+                    ?.partName
+                }
+                partUrl={
+                  blog?.content.find((item) => item.type === "Redirect")?.value
+                    ?.partUrl
+                }
                 description={
                   blog.content.find((item) => item.type === "Description")
                     ?.value
@@ -73,8 +79,14 @@ function SingleBlog() {
                 datePosted={blog.datePosted}
                 readTime={blog.readTime}
                 titleImg={blog.imgUrl}
-                partName={blog.partName}
-                partUrl={blog.partUrl}
+                partName={
+                  blog?.content.find((item) => item.type === "Redirect")?.value
+                    ?.partName
+                }
+                partUrl={
+                  blog?.content.find((item) => item.type === "Redirect")?.value
+                    ?.partUrl
+                }
                 part={blog.part}
                 description={
                   blog.content.find((item) => item.type === "Description")
