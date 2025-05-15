@@ -13,7 +13,7 @@ import article from "../../assets/icons/formIcons/content-writing.png";
 import redirect from "../../assets/icons/formIcons/shuffle.png";
 
 export function EditBlog() {
-  const { blogId } = useParams();
+  const { id } = useParams();
 
   const [mainImagePreview, setMainImagePreview] = useState(null);
   const [imagePreviews, setImagePreviews] = useState({});
@@ -35,50 +35,61 @@ export function EditBlog() {
     { img: article, type: "Article", label: "Article Content" },
     { img: image, type: "Image", label: "Image Upload" },
   ];
-  console.log("hello");
 
   useEffect(() => {
     const fetchBlog = async () => {
       setIsLoading(true);
-      console.log("loading");
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const sanitizedContent = Array.isArray(data.content)
-          ? data.content.map((field) => {
-              if (
-                typeof field.value === "string" ||
-                (field.type === "Redirect" &&
-                  typeof field.value === "object" &&
-                  field.value !== null)
-              ) {
-                return field;
-              }
 
-              // Fix malformed content
-              return {
-                ...field,
-                value:
-                  field.type === "Redirect"
-                    ? { partName: "", partUrl: "" }
-                    : "",
-              };
-            })
-          : [];
+      try {
+        const docRef = doc(db, "blogs", id);
+        const docSnap = await getDoc(docRef);
 
-        setTitle(data.title || "");
-        setSubTitle(data.subTitle || "");
-        setAuthor(data.author || "");
-        setReadTime(data.readTime || "");
-        setPart(data.part || "");
-        setCategories(data.categories || []);
-        setImgUrl(data.imgUrl || null);
-        setFormArray(sanitizedContent);
-        setMainImagePreview(data.imgUrl || null);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+
+          const sanitizedContent = Array.isArray(data.content)
+            ? data.content.map((field) => {
+                if (
+                  typeof field.value === "string" ||
+                  (field.type === "Redirect" &&
+                    typeof field.value === "object" &&
+                    field.value !== null)
+                ) {
+                  return field;
+                }
+
+                return {
+                  ...field,
+                  value:
+                    field.type === "Redirect"
+                      ? { partName: "", partUrl: "" }
+                      : "",
+                };
+              })
+            : [];
+
+          setTitle(data.title || "");
+          setSubTitle(data.subTitle || "");
+          setAuthor(data.author || "");
+          setReadTime(data.readTime || "");
+          setPart(data.part || "");
+          setCategories(data.categories || []);
+
+          setImgUrl(data.imgUrl || null);
+          setFormArray(sanitizedContent);
+          setMainImagePreview(data.imgUrl || null);
+        } else {
+          console.error("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching blog:", error);
       }
+
+      setIsLoading(false);
     };
 
     fetchBlog();
-  }, [blogId]);
+  }, [id]);
 
   const handleAddField = (type) => {
     if (type === "Redirect") {
@@ -115,6 +126,7 @@ export function EditBlog() {
     switch (field.type) {
       case "Description":
       case "Article":
+        console.log(field.value);
         return (
           <div
             key={index}
@@ -234,7 +246,7 @@ export function EditBlog() {
         partUrl,
       };
 
-      const blogRef = doc(db, "blogs", blogId);
+      const blogRef = doc(db, "blogs", id);
       await updateDoc(blogRef, blogPayload);
 
       alert("Blog updated successfully!");

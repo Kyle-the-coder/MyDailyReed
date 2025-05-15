@@ -5,7 +5,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { Link } from "@tiptap/extension-link";
 import "./tiptap.css";
 
-export default function TiptapEditor({ onChange }) {
+export default function TiptapEditor({ onChange, content }) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -15,7 +15,7 @@ export default function TiptapEditor({ onChange }) {
       }),
       Link,
     ],
-    content: "",
+    content,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
