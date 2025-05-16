@@ -113,6 +113,9 @@ body {
 .silver-text {
   color: #a1a1a1;
 }
+.d-silver-text {
+  color: #909090;
+}
 
 .no-scroll {
   overflow: hidden;

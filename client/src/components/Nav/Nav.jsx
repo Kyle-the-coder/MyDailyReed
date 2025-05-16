@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback, act } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { scrollToSection } from "../SmoothScroll";
 import { useNavigate } from "react-router-dom";
 import { Hamburger } from "../Hamburger/Hamburger";
+import { db } from "../../firebaseConfig";
 import logo from "../../assets/logo/MDRLogoB.png";
 import fb from "../../assets/icons/facebookBlack.png";
 import insta from "../../assets/icons/instagramBlack.png";
@@ -10,8 +11,6 @@ import linked from "../../assets/icons/linkedinBlack.png";
 import arrow from "../../assets/icons/arrow.png";
 import gsap from "gsap";
 import "./nav.css";
-import { scrollToSection } from "../SmoothScroll";
-import { ArrowButton } from "../Buttons/ArrowButton/ArrowButton";
 
 export function Nav() {
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -207,27 +206,41 @@ export function Nav() {
               <img src={arrow} />
             </button>
             <div className="search-results-container">
-              {filteredBlogs.map((blog) => {
-                console.log("imgUrl:", blog.imgUrl);
-                return (
-                  <div
-                    key={blog.id}
-                    className="search-result"
-                    onClick={() => {
-                      navigate(`/singleBlog/${blog.id}`);
-                      setSearchInput("");
-                      setFilteredBlogs([]);
+              {filteredBlogs.map((blog) => (
+                <div
+                  key={blog.id}
+                  className="search-result"
+                  style={{ padding: "20px" }}
+                  onClick={() => {
+                    navigate(`/singleBlog/${blog.id}`);
+                    setSearchInput(""); // clear input after navigating
+                    setFilteredBlogs([]);
+                  }}
+                >
+                  <img
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      marginBottom: "10px",
                     }}
-                  >
-                    <img
-                      style={{ width: "40px", height: "40px" }}
-                      src={blog.imgUrl}
-                      alt={blog.title}
-                    />
-                    <p className="outfit-font">{blog.title}</p>
+                    src={blog.imgUrl}
+                    alt={blog.title}
+                  />
+                  <div className="display-column" style={{ textAlign: "left" }}>
+                    <h3 className="outfit-font" style={{ marginBottom: "5px" }}>
+                      {blog.title} {blog.part && `Part ${blog.part}`}
+                    </h3>
+                    <p className="outfit-font">
+                      <span style={{ textDecoration: "underline" }}>
+                        Catgories:
+                      </span>{" "}
+                    </p>
+                    <p style={{ textAlign: "center", marginTop: "5px" }}>
+                      {blog.categories?.join(", ")}
+                    </p>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
 
@@ -278,13 +291,40 @@ export function Nav() {
                   <div
                     key={blog.id}
                     className="search-result"
+                    style={{ padding: "20px 10px" }}
                     onClick={() => {
                       navigate(`/singleBlog/${blog.id}`);
                       setSearchInput(""); // clear input after navigating
                       setFilteredBlogs([]);
                     }}
                   >
-                    {blog.title} {blog.part && `Part ${blog.part}`}
+                    <img
+                      style={{
+                        width: "180px",
+                        height: "80px",
+                        marginRight: "30px",
+                        objectFit: "cover",
+                      }}
+                      src={blog.imgUrl}
+                      alt={blog.title}
+                    />
+                    <div style={{ textAlign: "left" }}>
+                      <h3
+                        className="outfit-font"
+                        style={{ marginBottom: "5px" }}
+                      >
+                        {blog.title} {blog.part && `Part ${blog.part}`}
+                      </h3>
+                      <p className="outfit-font">
+                        <span
+                          className="d-silver-text"
+                          style={{ textDecoration: "underline" }}
+                        >
+                          Catgories:
+                        </span>{" "}
+                        {blog.categories?.join(", ")}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
