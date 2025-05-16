@@ -68,8 +68,6 @@ export function Nav() {
 
   //filter blogs
   const handleSearch = () => {
-    console.log("searching");
-
     const trimmed = searchInput.trim().toLowerCase();
     if (!trimmed) {
       console.log("nothing");
@@ -80,7 +78,6 @@ export function Nav() {
     const firstChar = trimmed[0];
     const matchingCategorySet = new Set();
 
-    // Step 1: Find categories that partially match input
     allBlogs.forEach((blog) => {
       if (Array.isArray(blog.categories)) {
         blog.categories.forEach((cat) => {
@@ -91,7 +88,6 @@ export function Nav() {
       }
     });
 
-    // Step 2: Filter based on conditions
     const filtered = allBlogs.filter((blog) => {
       const title = blog.title?.toLowerCase() || "";
       const subtitle = blog.subtitle?.toLowerCase() || "";
@@ -100,11 +96,11 @@ export function Nav() {
         : [];
 
       return (
-        title.includes(trimmed) || // Title matches search input
-        subtitle.includes(trimmed) || // Subtitle matches search input
-        title[0] === firstChar || // First letter of title matches search input
-        categories.some((cat) => cat.includes(trimmed)) || // Category matches search input
-        categories.some((cat) => matchingCategorySet.has(cat)) // Exact category match
+        title.includes(trimmed) ||
+        subtitle.includes(trimmed) ||
+        title[0] === firstChar ||
+        categories.some((cat) => cat.includes(trimmed)) ||
+        categories.some((cat) => matchingCategorySet.has(cat))
       );
     });
 
@@ -203,7 +199,6 @@ export function Nav() {
             />
             <button
               onClick={() => {
-                console.log("Search button clicked!");
                 handleSearch();
               }}
               className="arrow-button green-bg"
@@ -211,23 +206,29 @@ export function Nav() {
             >
               <img src={arrow} />
             </button>
-            {filteredBlogs.length > 0 && (
-              <div className="search-results-container">
-                {filteredBlogs.map((blog) => (
+            <div className="search-results-container">
+              {filteredBlogs.map((blog) => {
+                console.log("imgUrl:", blog.imgUrl);
+                return (
                   <div
                     key={blog.id}
                     className="search-result"
                     onClick={() => {
                       navigate(`/singleBlog/${blog.id}`);
-                      setSearchInput(""); // clear input after navigating
+                      setSearchInput("");
                       setFilteredBlogs([]);
                     }}
                   >
-                    {blog.title} {blog.part && `Part ${blog.part}`}
+                    <img
+                      style={{ width: "40px", height: "40px" }}
+                      src={blog.imgUrl}
+                      alt={blog.title}
+                    />
+                    <p className="outfit-font">{blog.title}</p>
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              })}
+            </div>
           </div>
 
           {isHamburgerActive && (

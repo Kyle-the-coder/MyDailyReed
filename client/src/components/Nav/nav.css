@@ -27,18 +27,20 @@
 
 .search-results-container {
   position: absolute;
+  left: 0;
   top: 100%;
   background: white;
   z-index: 1000;
   width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
 }
 
 .search-result {
+  width: 100%;
   padding: 10px;
+  border-bottom: 2px solid black;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   transition: background 0.2s ease;
 }
 

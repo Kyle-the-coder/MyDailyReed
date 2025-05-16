@@ -88,10 +88,9 @@ export default function TiptapEditor({ onChange, content }) {
             let url = window.prompt("Enter URL", previousUrl || "");
 
             if (url === null) {
-              return; // User cancelled
+              return;
             }
 
-            // If user didn't enter a protocol, add https://
             if (
               url &&
               !url.startsWith("http://") &&
@@ -101,9 +100,9 @@ export default function TiptapEditor({ onChange, content }) {
             }
 
             if (url === "") {
-              editor.chain().focus().unsetLink().run(); // Remove link
+              editor.chain().focus().unsetLink().run();
             } else {
-              editor.chain().focus().setLink({ href: url }).run(); // Set new link
+              editor.chain().focus().setLink({ href: url }).run();
             }
           }}
           className={editor.isActive("link") ? "active" : ""}
