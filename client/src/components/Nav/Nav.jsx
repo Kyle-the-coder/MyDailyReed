@@ -205,7 +205,7 @@ export function Nav() {
             >
               <img src={arrow} />
             </button>
-            <div className="search-results-container">
+            <div className="search-results-container silver-bg">
               {filteredBlogs.map((blog) => (
                 <div
                   key={blog.id}
@@ -219,9 +219,10 @@ export function Nav() {
                 >
                   <img
                     style={{
-                      width: "100px",
-                      height: "100px",
+                      width: "250px",
+                      height: "120px",
                       marginBottom: "10px",
+                      objectFit: "cover",
                     }}
                     src={blog.imgUrl}
                     alt={blog.title}
@@ -231,7 +232,10 @@ export function Nav() {
                       {blog.title} {blog.part && `Part ${blog.part}`}
                     </h3>
                     <p className="outfit-font">
-                      <span style={{ textDecoration: "underline" }}>
+                      <span
+                        className="d-silver-text"
+                        style={{ textDecoration: "underline" }}
+                      >
                         Catgories:
                       </span>{" "}
                     </p>
@@ -286,7 +290,7 @@ export function Nav() {
               <img src={arrow} />
             </button>
             {filteredBlogs.length > 0 && (
-              <div className="search-results-container">
+              <div className="search-results-container = silver-bg">
                 {filteredBlogs.map((blog) => (
                   <div
                     key={blog.id}
@@ -317,7 +321,7 @@ export function Nav() {
                       </h3>
                       <p className="outfit-font">
                         <span
-                          className="d-silver-text"
+                          className="-text"
                           style={{ textDecoration: "underline" }}
                         >
                           Catgories:
