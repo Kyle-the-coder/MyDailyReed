@@ -23,7 +23,6 @@ export function Sidebar({ author }) {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
   }, [location]);
-  console.log("height", sidebarHeight);
 
   return (
     <div ref={containerRef} className="sidebar-main-container silver-bg">

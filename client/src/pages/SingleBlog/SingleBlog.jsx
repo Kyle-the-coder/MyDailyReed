@@ -64,7 +64,7 @@ function SingleBlog() {
                 }
                 redirectLink={blog.redirectLink}
               />
-              <div className="padding-40">
+              <div className="padding-20">
                 <SbArticle content={blog.content} />
               </div>
 

@@ -156,6 +156,9 @@ body {
 .padding-40 {
   padding: 40px;
 }
+.padding-20 {
+  padding: 20px;
+}
 
 .pos-relative {
   position: relative;
