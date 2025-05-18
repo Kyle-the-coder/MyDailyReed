@@ -97,7 +97,7 @@
 @media (max-width: 800px) {
   .social-main-container {
     padding: 50px 0px;
-    width: 95%;
+    width: 100%;
   }
   .like-and-comment-container {
     flex-direction: column;
