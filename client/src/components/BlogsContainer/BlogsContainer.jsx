@@ -5,17 +5,20 @@ import { scrollToSection } from "../SmoothScroll.jsx";
 import { PostLoader } from "../Loader/PostLoader/PostLoader.jsx";
 import articleImg from "../../assets/placeholders/Artc1.png";
 import "./blogscontainer.css";
+
 export function BlogsContainer({
   isVertical = false,
   title,
+  subTitle,
   height,
   marginBottom,
   trending = false,
   maxCount,
   nav,
+  blogArray,
 }) {
   const [blogs, setBlogs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // default fallback
+  const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef(null);
   const navigate = useNavigate();
   const visibleCount = maxCount ?? 4;
@@ -49,13 +52,22 @@ export function BlogsContainer({
       }
     };
 
-    fetchBlogs();
-  }, [trending]);
+    if (blogArray && blogArray.length > 0) {
+      setBlogs(blogArray);
+      setIsLoading(false);
+    } else {
+      fetchBlogs();
+    }
+  }, [trending, blogArray]);
 
   return (
     <section className="display-column">
       <div className="title-container">
-        <h1 className="outfit-font">{title}</h1>
+        <div className="info-container">
+          <h1 className="outfit-font">{title}</h1>
+          <h1 className="outfit-font">{subTitle}</h1>
+        </div>
+
         <div className="line-blog"></div>
       </div>
 

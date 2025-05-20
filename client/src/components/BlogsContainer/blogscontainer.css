@@ -11,6 +11,11 @@
   margin-bottom: 10px;
 }
 
+.info-container {
+  display: flex;
+  gap: 10px;
+}
+
 .line-blog {
   width: 100%;
   height: 4px;
@@ -61,5 +66,8 @@
   }
   .title-container h1 {
     font-size: 2rem;
+  }
+  .info-container {
+    flex-direction: column;
   }
 }

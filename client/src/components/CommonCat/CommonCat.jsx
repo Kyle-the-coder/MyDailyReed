@@ -3,10 +3,11 @@ import { db } from "../../firebaseConfig"; // adjust path if needed
 import { doc, getDoc } from "firebase/firestore";
 import "./commoncat.css";
 import { useCategoryRefresh } from "../../contexts/CategoryContext";
-
+import { useNavigate } from "react-router-dom";
 export function CommonCat() {
   const [categories, setCategories] = useState([]);
   const { refresh } = useCategoryRefresh();
+  const navigate = useNavigate(); // <-- Hook for navigation
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -43,6 +44,10 @@ export function CommonCat() {
           <h3
             key={index}
             className={`category silver-bg outfit-font ${getSizeClass(cat)}`}
+            onClick={() => {
+              navigate(`/searchPage/${encodeURIComponent(cat)}`);
+              window.scrollTo({ top: 0 });
+            }}
           >
             {cat}
           </h3>

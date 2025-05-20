@@ -1,5 +1,4 @@
 import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
-import "./editdirectory.css";
 
 export function EditDirectory() {
   return (

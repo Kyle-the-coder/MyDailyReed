@@ -4,6 +4,8 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { uploadImageToFirebase } from "../../utils/uploadImage";
 import { PostLoader } from "../../components/Loader/PostLoader/PostLoader";
+
+import del from "../../assets/icons/x-button.png";
 import TiptapEditor from "../../components/TipTap/TiptapEditor";
 import menu from "../../assets/icons/formIcons/menu.png";
 import submit from "../../assets/icons/formIcons/check.png";
@@ -25,6 +27,7 @@ export function EditBlog() {
   const [author, setAuthor] = useState("");
   const [readTime, setReadTime] = useState("");
   const [categories, setCategories] = useState([]);
+  const [preLoadCategories, setPreLoadCategories] = useState([]);
   const [subTitle, setSubTitle] = useState("");
   const [part, setPart] = useState("");
   const [imgUrl, setImgUrl] = useState(null);
@@ -73,7 +76,7 @@ export function EditBlog() {
           setAuthor(data.author || "");
           setReadTime(data.readTime || "");
           setPart(data.part || "");
-          setCategories(data.categories || []);
+          setPreLoadCategories(data.categories || []);
 
           setImgUrl(data.imgUrl || null);
           setFormArray(sanitizedContent);
@@ -103,6 +106,11 @@ export function EditBlog() {
     setExpandIcons(false);
   };
 
+  const deleteCategory = (catToDelete) => {
+    setCategories((prev) => prev.filter((cat) => cat !== catToDelete));
+    setPreLoadCategories((prev) => prev.filter((cat) => cat !== catToDelete));
+  };
+
   const handleChange = (index, content, key = null) => {
     const updated = [...formArray];
     if (key && typeof updated[index].value === "object") {
@@ -126,7 +134,6 @@ export function EditBlog() {
     switch (field.type) {
       case "Description":
       case "Article":
-        console.log(field.value);
         return (
           <div
             key={index}
@@ -233,6 +240,10 @@ export function EditBlog() {
       const partName = redirectField?.value?.partName || null;
       const partUrl = redirectField?.value?.partUrl || null;
 
+      const mergedCategories = Array.from(
+        new Set([...(preLoadCategories || []), ...(categories || [])])
+      );
+
       const blogPayload = {
         title,
         subTitle,
@@ -241,7 +252,7 @@ export function EditBlog() {
         part,
         imgUrl: newMainImageUrl,
         content: processedContent,
-        categories,
+        categories: mergedCategories,
         partName,
         partUrl,
       };
@@ -317,7 +328,6 @@ export function EditBlog() {
             <input
               className="input playfair-font"
               type="text"
-              value={categories.join(", ")}
               onChange={(e) =>
                 setCategories(
                   e.target.value
@@ -327,14 +337,33 @@ export function EditBlog() {
                 )
               }
             />
-            {categories.length > 0 && (
+            {preLoadCategories.length > 0 && (
               <div className="category-container outfit-font">
-                Categories:
-                {categories.map((cat) => (
-                  <div key={cat} className="cat silver-bg">
+                <h1 className="outfit-font">Categories:</h1>
+                {preLoadCategories.map((cat) => (
+                  <div key={cat} className="cat1 silver-bg">
                     {cat}
+                    <img
+                      src={del}
+                      className="del-button"
+                      onClick={() => deleteCategory(cat)}
+                    />
                   </div>
                 ))}
+                {categories.length > 0 && (
+                  <>
+                    {categories.map((cat) => (
+                      <div key={cat} className="cat1 outfit-font silver-bg">
+                        {cat}
+                        <img
+                          src={del}
+                          className="del-button"
+                          onClick={() => deleteCategory(cat)}
+                        />
+                      </div>
+                    ))}
+                  </>
+                )}
               </div>
             )}
           </div>
