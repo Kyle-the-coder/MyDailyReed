@@ -63,7 +63,7 @@ export function CreateBlog() {
       setImagePreviews((prev) => ({ ...prev, [index]: previewURL }));
     }
   };
-  console.log(formArray);
+
   const renderFormField = (field, index) => {
     switch (field.type) {
       case "Description":

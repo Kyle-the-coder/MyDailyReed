@@ -10,6 +10,7 @@ import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { CreateBlog } from "./pages/CreateBlog/CreateBlog";
 import { EditBlog } from "./pages/EditBlog/EditBlog";
 import { EditDirectory } from "./pages/EditDirectory/EditDirectory";
+import { EditCat } from "./pages/EditCat/EditCat";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +50,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <EditDirectory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/editCat",
+        element: (
+          <PrivateRoute>
+            <EditCat />
           </PrivateRoute>
         ),
       },
