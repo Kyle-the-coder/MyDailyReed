@@ -29,13 +29,14 @@ export function BlogsContainer({
         setIsLoading(true);
         const data = await getBlogs();
 
-        const hasLikes = data.some((blog) => typeof blog.likes === "number");
         let sortedBlogs;
 
-        if (trending && hasLikes) {
-          sortedBlogs = [...data].sort(
-            (a, b) => (b.likes || 0) - (a.likes || 0)
-          );
+        if (trending) {
+          sortedBlogs = [...data].sort((a, b) => {
+            const likesA = Array.isArray(a.likes) ? a.likes.length : 0;
+            const likesB = Array.isArray(b.likes) ? b.likes.length : 0;
+            return likesB - likesA;
+          });
         } else {
           sortedBlogs = [...data].sort((a, b) => {
             const dateA = a.datePosted?.toDate?.() || new Date(0);
@@ -95,9 +96,7 @@ export function BlogsContainer({
                 alt={blog.title || "Blog image"}
                 style={{ height: height }}
               />
-              <p className="playfair-thin-font">
-                {blog.categories?.[0] || "Uncategorized"}
-              </p>
+              <p className="playfair-thin-font">{blog.subTitle}</p>
               <h3>
                 {blog.title || "Untitled"}{" "}
                 {blog.part ? `Part ${blog.part}` : ""}

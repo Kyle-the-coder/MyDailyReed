@@ -28,11 +28,83 @@
   background-color: black;
 }
 
+.blogs-series-carousel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.carousel .control-arrow {
+  opacity: 1 !important;
+  background: rgba(200, 200, 200, 0.102) !important;
+}
+
+.carousel .carousel-slider {
+  margin-bottom: 20px;
+  position: none;
+}
+
+.carousel .control-dots {
+  position: absolute;
+  bottom: -10px;
+
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 5;
+}
+
+.carousel .control-prev:before {
+  border-right-color: #75b422 !important;
+  opacity: 1;
+}
+
+.carousel .control-next:before {
+  border-left-color: #75b422 !important;
+  opacity: 1;
+}
 .series-blogs-grid {
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 1rem;
+}
+
+.blogs-info-container {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+
+  max-width: 400px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 0 auto;
+  transition: transform 0.2s ease;
+}
+
+.blogs-info-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
 }
 
 .series-blog-card {
@@ -45,4 +117,10 @@
 .series-title {
   font-size: 1.8rem;
   margin-top: 1rem;
+}
+
+@media only screen and (max-width: 700px) {
+  .all-blogs-main {
+    padding: 20px;
+  }
 }

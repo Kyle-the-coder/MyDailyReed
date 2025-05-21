@@ -1,5 +1,6 @@
 import { uploadImageToFirebase } from "../../utils/uploadImage";
 import { useState } from "react";
+import { serverTimestamp } from "firebase/firestore";
 import { PostLoader } from "../../components/Loader/PostLoader/PostLoader";
 import TiptapEditor from "../../components/TipTap/TiptapEditor";
 import { postBlogToFirestore } from "../../utils/blogApi";
@@ -22,6 +23,7 @@ export function CreateBlog() {
   const [readTime, setReadTime] = useState(null);
   const [categories, setCategories] = useState([]);
   const [subTitle, setSubTitle] = useState(null);
+  const [series, setSeries] = useState(null);
 
   const [part, setPart] = useState(null);
 
@@ -146,12 +148,12 @@ export function CreateBlog() {
     e.preventDefault();
     setIsLoading(true);
 
-    let photoUrl = null;
+    let imgUrl = null;
 
     try {
       const photoInput = document.querySelector('input[type="file"]');
       if (photoInput?.files[0]) {
-        photoUrl = await uploadImageToFirebase(photoInput.files[0]);
+        imgUrl = await uploadImageToFirebase(photoInput.files[0]);
       }
 
       const processedContent = await Promise.all(
@@ -163,21 +165,17 @@ export function CreateBlog() {
           return field;
         })
       );
-      const redirectField = formArray.find(
-        (field) => field.type === "Redirect"
-      );
-      const partName = redirectField?.value?.partName || null;
-      const partUrl = redirectField?.value?.partUrl || null;
 
       const blogPayload = {
         title,
         subTitle,
+        series,
         author,
         readTime,
         part,
         categories,
         imgUrl,
-        content: formArray,
+        content: processedContent,
         datePosted: serverTimestamp(),
       };
 
@@ -212,6 +210,14 @@ export function CreateBlog() {
               className="input playfair-font"
               type="text"
               onChange={(e) => setSubTitle(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <label className="input-label outfit-font">Series Title:</label>
+            <input
+              className="input playfair-font"
+              type="text"
+              onChange={(e) => setSeries(e.target.value)}
             />
           </div>
           <div className="input-container">

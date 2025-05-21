@@ -1,45 +1,50 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
-import { db } from "../../firebaseConfig"; // adjust path as needed
+import { useEffect, useState } from "react";
+import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
+import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
+import { db } from "../../firebaseConfig"; // adjust path as needed
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import "./allblogs.css";
-import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
+import { scrollToSection } from "../../components/SmoothScroll";
 
 function AllBlogs() {
   const [seriesGroups, setSeriesGroups] = useState({});
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     async function fetchBlogs() {
-      const q = query(
-        collection(db, "blogs"),
-        orderBy("createdAt", "desc"),
-        limit(100)
-      );
+      const q = query(collection(db, "blogs"));
       const snapshot = await getDocs(q);
 
-      const groups = {};
+      const rawGroups = {};
+
       snapshot.forEach((doc) => {
         const data = doc.data();
-        const series = data.series || "Uncategorized";
+        const series = data.series?.trim();
+        if (!series) return;
 
-        if (!groups[series]) {
-          groups[series] = [];
-        }
-
-        if (groups[series].length < 4) {
-          groups[series].push({ id: doc.id, ...data });
-        }
+        if (!rawGroups[series]) rawGroups[series] = [];
+        rawGroups[series].push({ id: doc.id, ...data });
       });
 
-      setSeriesGroups(groups);
+      const finalGroups = Object.fromEntries(
+        Object.entries(rawGroups).map(([seriesTitle, blogs]) => [
+          seriesTitle,
+          blogs
+            .sort((a, b) => Number(a.part || 0) - Number(b.part || 0))
+            .slice(0, 4),
+        ])
+      );
+
+      setSeriesGroups(finalGroups);
+      setIsReady(true); // ✅ Only render Carousel once this is true
     }
 
     fetchBlogs();
   }, []);
-
+  console.log(seriesGroups);
   return (
     <section className="all-blogs-main">
       <div className="blogs-title-container">
@@ -60,24 +65,50 @@ function AllBlogs() {
       </div>
 
       <div className="blogs-series-carousel">
-        <Carousel showThumbs={false} infiniteLoop useKeyboardArrows autoPlay>
-          {Object.entries(seriesGroups).map(([seriesTitle, blogs]) => (
-            <div key={seriesTitle}>
-              <h2 className="series-title">{seriesTitle}</h2>
-              <div className="series-blogs-grid">
-                {blogs.map((blog) => (
-                  <div key={blog.id} className="series-blog-card">
-                    <h3>{blog.title}</h3>
-                    <p>
-                      {blog.subtitle || blog.content?.slice(0, 100) + "..."}
-                    </p>
-                    {/* Add image and link to single blog if needed */}
-                  </div>
-                ))}
+        {isReady && (
+          <Carousel
+            key={Object.keys(seriesGroups).join("-")}
+            showStatus={false}
+            infiniteLoop={true}
+            showArrows={true}
+            swipeable={false}
+            showThumbs={false}
+            className="carousel"
+          >
+            {Object.entries(seriesGroups).map(([seriesTitle, blogs]) => (
+              <div key={seriesTitle}>
+                <h2 className="series-title">
+                  {seriesTitle.replace(/\b\w/g, (char) => char.toUpperCase())}
+                </h2>
+                <div className="series-blogs-grid">
+                  {blogs.map((blog) => (
+                    <div
+                      key={blog.id}
+                      className="blogs-info-container"
+                      onClick={() => {
+                        navigate(`/${nav}/${blog.id}`);
+                        scrollToSection("#nav");
+                      }}
+                    >
+                      <img
+                        src={blog.imgUrl || articleImg}
+                        alt={blog.title || "Blog image"}
+                      />
+                      <p className="playfair-thin-font">{blog.subTitle}</p>
+                      <h3>
+                        {blog.title || "Untitled"}{" "}
+                        {blog.part ? `Part ${blog.part}` : ""}
+                      </h3>
+                      <p className="playfair-thin-font silver-text">
+                        {blog.author || "Unknown Author"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </Carousel>
+            ))}
+          </Carousel>
+        )}
       </div>
     </section>
   );

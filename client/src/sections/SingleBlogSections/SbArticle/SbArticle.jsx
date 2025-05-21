@@ -30,7 +30,7 @@ export function SbArticle({ content }) {
                   key={item._id || index}
                   src={item.value}
                   alt={`article-section-${index}`}
-                  className="sb-article-image"
+                  className="sb-article-img"
                 />
               );
             }
