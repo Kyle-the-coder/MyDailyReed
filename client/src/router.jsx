@@ -12,6 +12,7 @@ import { EditBlog } from "./pages/EditBlog/EditBlog";
 import { EditDirectory } from "./pages/EditDirectory/EditDirectory";
 import { EditCat } from "./pages/EditCat/EditCat";
 import { searchPageRoute } from "./pages/SearchPage/SearchPage";
+import { allBlogsRoute } from "./pages/AllBlogs/AllBlogs";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: "/singleBlog/:id", ...singleBlogRoute },
       { path: "/login", ...loginRoute },
       { path: "/searchPage/:category", ...searchPageRoute },
+      { path: "/blogs", ...allBlogsRoute },
       {
         path: "/dashboard",
         element: (
