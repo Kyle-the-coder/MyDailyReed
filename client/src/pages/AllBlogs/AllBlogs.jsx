@@ -12,6 +12,7 @@ import { scrollToSection } from "../../components/SmoothScroll";
 function AllBlogs() {
   const [seriesGroups, setSeriesGroups] = useState({});
   const [isReady, setIsReady] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchBlogs() {
@@ -86,8 +87,8 @@ function AllBlogs() {
                       key={blog.id}
                       className="blogs-info-container"
                       onClick={() => {
-                        navigate(`/${nav}/${blog.id}`);
-                        scrollToSection("#nav");
+                        navigate(`/singleBlog/${blog.id}`);
+                        window.scrollTo({ top: 0 });
                       }}
                     >
                       <img

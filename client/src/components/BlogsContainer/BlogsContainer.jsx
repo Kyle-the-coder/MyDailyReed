@@ -88,7 +88,7 @@ export function BlogsContainer({
               style={{ marginBottom: marginBottom }}
               onClick={() => {
                 navigate(`/${nav}/${blog.id}`);
-                scrollToSection("#nav");
+                window.scrollTo({ top: 0 });
               }}
             >
               <img
