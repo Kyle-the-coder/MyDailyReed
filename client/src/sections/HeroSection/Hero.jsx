@@ -25,7 +25,13 @@ export function Hero() {
           <h1 className="playfair-font green-text">My</h1>
           <h1 className="playfair-font green-text">Daily</h1>
           <h1 className="playfair-font green-text">Reed</h1>
-          <WordButton text="See Blogs" onClick={() => navigate("/blogs")} />
+          <WordButton
+            text="See Blogs"
+            onClick={() => {
+              navigate("/blogs");
+              window.scrollTo(0, 0);
+            }}
+          />
         </>
       ) : (
         <>
@@ -37,7 +43,13 @@ export function Hero() {
           >
             Reed
           </h1>
-          <WordButton text="See Blogs" onClick={() => navigate("/blogs")} />
+          <WordButton
+            text="See Blogs"
+            onClick={() => {
+              navigate("/blogs");
+              window.scrollTo(0, 0);
+            }}
+          />
         </>
       )}
     </section>
