@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { scrollToSection } from "../SmoothScroll";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,8 @@ export function Nav() {
   const [searchInput, setSearchInput] = useState("");
   const [allBlogs, setAllBlogs] = useState([]);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const searchResultsRef = useRef(null);
+  const [isSearched, setIsSearched] = useState(null);
 
   const links = [
     { linkName: "Home", link: "/" },
@@ -65,6 +67,23 @@ export function Nav() {
     fetchBlogs();
   }, []);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        searchResultsRef.current &&
+        !searchResultsRef.current.contains(event.target)
+      ) {
+        setFilteredBlogs([]);
+        setIsSearched(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   //filter blogs
   const handleSearch = () => {
     const trimmed = searchInput.trim().toLowerCase();
@@ -104,6 +123,7 @@ export function Nav() {
     });
 
     setFilteredBlogs(filtered);
+    setIsSearched(true);
   };
 
   useEffect(() => {
@@ -166,7 +186,8 @@ export function Nav() {
       document.body.classList.remove("no-scroll");
     }
   }, [isHamburgerActive]);
-
+  console.log(filteredBlogs.length);
+  console.log(isSearched);
   return (
     <nav id="nav" className="nav-main-container charcoal-bg">
       {windowWidth <= 700 ? (
@@ -194,18 +215,24 @@ export function Nav() {
               className="playfair-font"
               placeholder="Quick Search..."
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+                setIsSearched(false);
+              }}
             />
             <button
               onClick={() => {
                 handleSearch();
               }}
               className="arrow-button green-bg"
-              style={{ zIndex: "9" }}
+              style={{ zIndex: "1" }}
             >
               <img src={arrow} />
             </button>
-            <div className="search-results-container silver-bg">
+            <div
+              ref={searchResultsRef}
+              className="search-results-container silver-bg"
+            >
               {filteredBlogs.map((blog) => (
                 <div
                   key={blog.id}
@@ -245,6 +272,14 @@ export function Nav() {
                   </div>
                 </div>
               ))}
+              {isSearched && filteredBlogs.length === 0 && (
+                <p
+                  className="outfit-font"
+                  style={{ padding: "20px", textAlign: "center" }}
+                >
+                  No results found for "{searchInput}"
+                </p>
+              )}
             </div>
           </div>
 
@@ -277,7 +312,10 @@ export function Nav() {
               className="playfair-font"
               placeholder="Quick Search..."
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+                setIsSearched(false);
+              }}
             />
             <button
               onClick={() => {
@@ -289,50 +327,58 @@ export function Nav() {
             >
               <img src={arrow} />
             </button>
-            {filteredBlogs.length > 0 && (
-              <div className="search-results-container = silver-bg">
-                {filteredBlogs.map((blog) => (
-                  <div
-                    key={blog.id}
-                    className="search-result"
-                    style={{ padding: "20px 10px" }}
-                    onClick={() => {
-                      navigate(`/singleBlog/${blog.id}`);
-                      setSearchInput(""); // clear input after navigating
-                      setFilteredBlogs([]);
+            <div
+              ref={searchResultsRef}
+              className="search-results-container silver-bg"
+            >
+              {filteredBlogs.map((blog) => (
+                <div
+                  key={blog.id}
+                  className="search-result"
+                  style={{ padding: "20px" }}
+                  onClick={() => {
+                    navigate(`/singleBlog/${blog.id}`);
+                    setSearchInput(""); // clear input after navigating
+                    setFilteredBlogs([]);
+                  }}
+                >
+                  <img
+                    style={{
+                      width: "250px",
+                      height: "120px",
+                      marginBottom: "10px",
+                      objectFit: "cover",
                     }}
-                  >
-                    <img
-                      style={{
-                        width: "180px",
-                        height: "80px",
-                        marginRight: "30px",
-                        objectFit: "cover",
-                      }}
-                      src={blog.imgUrl}
-                      alt={blog.title}
-                    />
-                    <div style={{ textAlign: "left" }}>
-                      <h3
-                        className="outfit-font"
-                        style={{ marginBottom: "5px" }}
+                    src={blog.imgUrl}
+                    alt={blog.title}
+                  />
+                  <div className="display-column" style={{ textAlign: "left" }}>
+                    <h3 className="outfit-font" style={{ marginBottom: "5px" }}>
+                      {blog.title} {blog.part && `Part ${blog.part}`}
+                    </h3>
+                    <p className="outfit-font">
+                      <span
+                        className="d-silver-text"
+                        style={{ textDecoration: "underline" }}
                       >
-                        {blog.title} {blog.part && `Part ${blog.part}`}
-                      </h3>
-                      <p className="outfit-font">
-                        <span
-                          className="-text"
-                          style={{ textDecoration: "underline" }}
-                        >
-                          Catgories:
-                        </span>{" "}
-                        {blog.categories?.join(", ")}
-                      </p>
-                    </div>
+                        Catgories:
+                      </span>{" "}
+                    </p>
+                    <p style={{ textAlign: "center", marginTop: "5px" }}>
+                      {blog.categories?.join(", ")}
+                    </p>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+              {isSearched && filteredBlogs.length === 0 && (
+                <p
+                  className="outfit-font"
+                  style={{ padding: "20px", textAlign: "center" }}
+                >
+                  No results found for "{searchInput}"
+                </p>
+              )}
+            </div>
           </div>
           <div className="logo-links">
             <img
