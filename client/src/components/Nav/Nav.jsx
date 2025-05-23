@@ -186,8 +186,7 @@ export function Nav() {
       document.body.classList.remove("no-scroll");
     }
   }, [isHamburgerActive]);
-  console.log(filteredBlogs.length);
-  console.log(isSearched);
+
   return (
     <nav id="nav" className="nav-main-container charcoal-bg">
       {windowWidth <= 700 ? (
@@ -242,6 +241,7 @@ export function Nav() {
                     navigate(`/singleBlog/${blog.id}`);
                     setSearchInput(""); // clear input after navigating
                     setFilteredBlogs([]);
+                    setIsSearched(null);
                   }}
                 >
                   <img
@@ -340,6 +340,7 @@ export function Nav() {
                     navigate(`/singleBlog/${blog.id}`);
                     setSearchInput(""); // clear input after navigating
                     setFilteredBlogs([]);
+                    setIsSearched(null);
                   }}
                 >
                   <img
