@@ -28,6 +28,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   margin: 0 auto;
+  position: relative;
 }
 .blog-info-container img {
   width: 100%;
@@ -54,6 +55,12 @@
   grid-template-columns: 1fr;
 }
 
+.dele-button {
+  position: absolute;
+  top: -2%;
+  right: -2%;
+  z-index: 2;
+}
 @media only screen and (max-width: 600px) {
   .blog-column-container {
     justify-content: center;

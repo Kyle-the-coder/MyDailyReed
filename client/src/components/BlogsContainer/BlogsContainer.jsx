@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getBlogs } from "../../utils/blogApi";
-import { scrollToSection } from "../SmoothScroll.jsx";
 import { PostLoader } from "../Loader/PostLoader/PostLoader.jsx";
 import articleImg from "../../assets/placeholders/Artc1.png";
+import x from "../../assets/icons/x-button.png";
 import "./blogscontainer.css";
 
 export function BlogsContainer({
@@ -16,6 +16,7 @@ export function BlogsContainer({
   maxCount,
   nav,
   blogArray,
+  del,
 }) {
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -96,6 +97,13 @@ export function BlogsContainer({
                 alt={blog.title || "Blog image"}
                 style={{ height: height }}
               />
+              {del && (
+                <img
+                  src={x}
+                  style={{ width: "40px", height: "40px" }}
+                  className="dele-button"
+                />
+              )}
               <p className="playfair-thin-font">{blog.subTitle}</p>
               <h3>
                 {blog.title || "Untitled"}{" "}

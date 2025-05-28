@@ -3,7 +3,6 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  min-height: 1950px;
 }
 
 .sb-article-container {
