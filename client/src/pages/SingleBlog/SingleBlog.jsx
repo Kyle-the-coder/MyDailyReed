@@ -40,7 +40,7 @@ function SingleBlog() {
       {blog ? (
         <>
           {" "}
-          {windowWidth < 600 ? (
+          {windowWidth < 620 ? (
             <>
               <SbTitle
                 title={blog.title}

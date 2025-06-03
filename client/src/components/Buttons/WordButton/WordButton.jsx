@@ -14,13 +14,13 @@ export function WordButton({ text, fontSize, margin, onClick }) {
       }}
       onClick={onClick}
     >
-      <p
+      <span
         style={{
           zIndex: 2,
         }}
       >
         {text}
-      </p>
+      </span>
       <div className={`hover-bg ${isHover ? "active" : ""}`}></div>
     </button>
   );

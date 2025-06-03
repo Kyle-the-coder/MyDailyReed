@@ -24,7 +24,7 @@
   object-fit: cover;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 620px) {
   .sb-article-main-container {
     flex-direction: column;
     width: 100%;

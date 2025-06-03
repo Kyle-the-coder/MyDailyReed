@@ -92,8 +92,12 @@ export function Social() {
           <div className="share-container">
             <h1 className="outfit-font">Share This:</h1>
             <div>
-              <WordButton text="X" fontSize=".8rem" />
-              <WordButton text="Facebook" fontSize=".8rem" />
+              <WordButton margin="10px 0px 0px 0px" text="X" fontSize=".8rem" />
+              <WordButton
+                margin="10px 0px 0px 0px"
+                text="Facebook"
+                fontSize=".8rem"
+              />
             </div>
           </div>
         </div>

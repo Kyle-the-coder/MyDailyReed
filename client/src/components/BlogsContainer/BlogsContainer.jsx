@@ -84,7 +84,6 @@ export function BlogsContainer({
       <div className="title-container">
         <div className="info-container">
           <h1 className="outfit-font">{title}</h1>
-          <h1 className="outfit-font">{subTitle}</h1>
         </div>
         <div className="line-blog"></div>
       </div>
