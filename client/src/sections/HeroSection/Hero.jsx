@@ -24,7 +24,12 @@ export function Hero() {
           <img src={heroBgMobile} />
           <h1 className="playfair-font green-text">My</h1>
           <h1 className="playfair-font green-text">Daily</h1>
-          <h1 className="playfair-font green-text">Reed</h1>
+          <h1
+            className="playfair-font green-text"
+            style={{ marginBottom: "50px" }}
+          >
+            Reed
+          </h1>
           <WordButton
             text="See Blogs"
             onClick={() => {

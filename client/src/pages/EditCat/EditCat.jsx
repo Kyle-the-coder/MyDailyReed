@@ -27,18 +27,28 @@ export function EditCat() {
     fetchCategories();
   }, []);
 
-  const deleteCategory = (catToDelete) => {
-    setCategories((prev) => prev.filter((cat) => cat !== catToDelete));
-    setPreLoadCategories((prev) => prev.filter((cat) => cat !== catToDelete));
+  const deleteCategory = (catToDelete, source) => {
+    console.log(source);
+    if (source === "preload") {
+      setPreLoadCategories((prev) => prev.filter((cat) => cat !== catToDelete));
+    } else {
+      setCategories((prev) => prev.filter((cat) => cat !== catToDelete));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const combinedCategories = Array.from(
-        new Set([...preLoadCategories, ...categories])
+      // Remove any duplicates from new categories if they already exist in preloaded ones
+      const filteredNewCategories = categories.filter(
+        (cat) => !preLoadCategories.includes(cat)
       );
+
+      const combinedCategories = [
+        ...preLoadCategories,
+        ...filteredNewCategories,
+      ];
 
       await updateDoc(docRef, { categories: combinedCategories });
       triggerRefresh();
@@ -50,6 +60,8 @@ export function EditCat() {
       setIsLoading(false);
     }
   };
+
+  console.log(categories);
 
   return (
     <section className="edit-cat-main">
@@ -79,35 +91,43 @@ export function EditCat() {
               }
             />
 
-            {preLoadCategories.length > 0 && (
-              <div className="category-container outfit-font">
-                <h1 className="outfit-font">Categories:</h1>
-                {preLoadCategories.map((cat) => (
-                  <div key={cat} className="cat1 silver-bg">
-                    {cat}
-                    <img
-                      src={del}
-                      className="del-button"
-                      onClick={() => deleteCategory(cat)}
-                    />
-                  </div>
-                ))}
-                {categories.length > 0 && (
-                  <>
-                    {categories.map((cat) => (
-                      <div key={cat} className="cat1 outfit-font silver-bg">
-                        {cat}
-                        <img
-                          src={del}
-                          className="del-button"
-                          onClick={() => deleteCategory(cat)}
-                        />
-                      </div>
-                    ))}
-                  </>
-                )}
-              </div>
-            )}
+            <div className="category-container outfit-font">
+              <h1 className="outfit-font">Categories:</h1>
+
+              {/* Preloaded categories */}
+              {preLoadCategories.length > 0 && (
+                <>
+                  <h3 className="outfit-font">Existing:</h3>
+                  {preLoadCategories.map((cat) => (
+                    <div key={`pre-${cat}`} className="cat1 silver-bg">
+                      {cat}
+                      <img
+                        src={del}
+                        className="del-button"
+                        onClick={() => deleteCategory(cat, "preload")}
+                      />
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {/* Newly added categories */}
+              {categories.length > 0 && (
+                <>
+                  <h3 className="outfit-font">New:</h3>
+                  {categories.map((cat) => (
+                    <div key={`new-${cat}`} className="cat1 silver-bg">
+                      {cat}
+                      <img
+                        src={del}
+                        className="del-button"
+                        onClick={() => deleteCategory(cat, "new")}
+                      />
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
           </div>
 
           {isLoading ? (
