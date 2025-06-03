@@ -68,7 +68,10 @@ function SingleBlog() {
                 <SbArticle content={blog.content} />
               </div>
 
-              <Sidebar author="My Daily Reed" />
+              <Sidebar
+                series={blog.series ? blog.series : null}
+                author="My Daily Reed"
+              />
             </>
           ) : (
             <>
@@ -95,7 +98,10 @@ function SingleBlog() {
               />
               <div className="flex-between padding-40 pos-relative">
                 <SbArticle content={blog.content} />
-                <Sidebar author="My Daily Reed" />
+                <Sidebar
+                  series={blog.series ? blog.series : null}
+                  author="My Daily Reed"
+                />
               </div>
             </>
           )}

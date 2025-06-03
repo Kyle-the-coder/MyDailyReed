@@ -50,7 +50,6 @@ function AllBlogs() {
     <section className="all-blogs-main">
       <div className="blogs-title-container">
         <h1 className="outfit-font">Blogs</h1>
-        <div className="line-blogs"></div>
       </div>
 
       <BlogsContainer nav="singleBlog" title="Latest" />

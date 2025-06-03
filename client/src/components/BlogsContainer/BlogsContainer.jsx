@@ -17,6 +17,7 @@ export function BlogsContainer({
   nav,
   blogArray,
   del,
+  series,
 }) {
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,17 +33,26 @@ export function BlogsContainer({
         setIsLoading(true);
         const data = await getBlogs();
 
-        let sortedBlogs = trending
-          ? [...data].sort(
-              (a, b) => (b.likes?.length || 0) - (a.likes?.length || 0)
-            )
-          : [...data].sort(
-              (a, b) =>
-                (b.datePosted?.toDate?.() ?? 0) -
-                (a.datePosted?.toDate?.() ?? 0)
-            );
+        let filteredBlogs = data;
 
-        setBlogs(sortedBlogs);
+        if (typeof series === "string" && series.trim() !== "") {
+          filteredBlogs = data
+            .filter((blog) => blog.series === series)
+            .sort((a, b) => (a.part ?? 0) - (b.part ?? 0)); // sort by part
+        } else if (trending) {
+          // Sort by likes for trending
+          filteredBlogs = [...data].sort(
+            (a, b) => (b.likes?.length || 0) - (a.likes?.length || 0)
+          );
+        } else {
+          // Default sort by most recent
+          filteredBlogs = [...data].sort(
+            (a, b) =>
+              (b.datePosted?.toDate?.() ?? 0) - (a.datePosted?.toDate?.() ?? 0)
+          );
+        }
+
+        setBlogs(filteredBlogs);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
       } finally {
@@ -56,7 +66,7 @@ export function BlogsContainer({
     } else {
       fetchBlogs();
     }
-  }, [trending, blogArray]);
+  }, [trending, blogArray, series]);
 
   const handleDelete = async () => {
     try {
