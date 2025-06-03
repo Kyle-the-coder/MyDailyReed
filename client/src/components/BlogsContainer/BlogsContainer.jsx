@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getBlogs } from "../../utils/blogApi";
+import { getBlogs, deleteBlog } from "../../utils/blogApi";
 import { PostLoader } from "../Loader/PostLoader/PostLoader.jsx";
 import articleImg from "../../assets/placeholders/Artc1.png";
 import x from "../../assets/icons/x-button.png";
@@ -20,6 +20,8 @@ export function BlogsContainer({
 }) {
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isdel, setIsDel] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState(null);
   const containerRef = useRef(null);
   const navigate = useNavigate();
   const visibleCount = maxCount ?? 4;
@@ -30,21 +32,15 @@ export function BlogsContainer({
         setIsLoading(true);
         const data = await getBlogs();
 
-        let sortedBlogs;
-
-        if (trending) {
-          sortedBlogs = [...data].sort((a, b) => {
-            const likesA = Array.isArray(a.likes) ? a.likes.length : 0;
-            const likesB = Array.isArray(b.likes) ? b.likes.length : 0;
-            return likesB - likesA;
-          });
-        } else {
-          sortedBlogs = [...data].sort((a, b) => {
-            const dateA = a.datePosted?.toDate?.() || new Date(0);
-            const dateB = b.datePosted?.toDate?.() || new Date(0);
-            return dateB - dateA;
-          });
-        }
+        let sortedBlogs = trending
+          ? [...data].sort(
+              (a, b) => (b.likes?.length || 0) - (a.likes?.length || 0)
+            )
+          : [...data].sort(
+              (a, b) =>
+                (b.datePosted?.toDate?.() ?? 0) -
+                (a.datePosted?.toDate?.() ?? 0)
+            );
 
         setBlogs(sortedBlogs);
       } catch (error) {
@@ -54,13 +50,24 @@ export function BlogsContainer({
       }
     };
 
-    if (blogArray && blogArray.length > 0) {
+    if (blogArray?.length > 0) {
       setBlogs(blogArray);
       setIsLoading(false);
     } else {
       fetchBlogs();
     }
   }, [trending, blogArray]);
+
+  const handleDelete = async () => {
+    try {
+      await deleteBlog(selectedBlog.id);
+      setBlogs((prev) => prev.filter((b) => b.id !== selectedBlog.id));
+      setIsDel(false);
+      setSelectedBlog(null);
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+    }
+  };
 
   return (
     <section className="display-column">
@@ -69,7 +76,6 @@ export function BlogsContainer({
           <h1 className="outfit-font">{title}</h1>
           <h1 className="outfit-font">{subTitle}</h1>
         </div>
-
         <div className="line-blog"></div>
       </div>
 
@@ -88,8 +94,10 @@ export function BlogsContainer({
               className="blog-info-container"
               style={{ marginBottom: marginBottom }}
               onClick={() => {
-                navigate(`/${nav}/${blog.id}`);
-                window.scrollTo({ top: 0 });
+                if (!isdel) {
+                  navigate(`/${nav}/${blog.id}`);
+                  window.scrollTo({ top: 0 });
+                }
               }}
             >
               <img
@@ -100,8 +108,19 @@ export function BlogsContainer({
               {del && (
                 <img
                   src={x}
-                  style={{ width: "40px", height: "40px" }}
+                  alt="Delete"
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    cursor: "pointer",
+                    zIndex: 2,
+                  }}
                   className="dele-button"
+                  onClick={(e) => {
+                    e.stopPropagation(); // prevent navigating
+                    setIsDel(true);
+                    setSelectedBlog(blog);
+                  }}
                 />
               )}
               <p className="playfair-thin-font">{blog.subTitle}</p>
@@ -116,6 +135,29 @@ export function BlogsContainer({
           ))
         )}
       </div>
+
+      {isdel && selectedBlog && (
+        <div className="delete-popup">
+          <div className="popup-content">
+            <p className="outfit-font">
+              Are you sure you want to delete{" "}
+              <strong>{selectedBlog.title || "this article"}</strong>
+              {selectedBlog.part && <strong> part {selectedBlog.part}</strong>}?
+            </p>
+            <div className="popup-buttons">
+              <button onClick={handleDelete}>Yes</button>
+              <button
+                onClick={() => {
+                  setIsDel(false);
+                  setSelectedBlog(null);
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
