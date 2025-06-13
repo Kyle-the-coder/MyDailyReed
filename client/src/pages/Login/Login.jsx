@@ -197,7 +197,7 @@ function Login() {
 
             {/* Registration */}
 
-            <h1 className="outfit-font white-text" style={{ fontSize: "2rem" }}>
+            {/* <h1 className="outfit-font white-text" style={{ fontSize: "2rem" }}>
               Register Here
             </h1>
 
@@ -260,7 +260,7 @@ function Login() {
                   </svg>
                 </button>
               </div>
-            </div>
+            </div> */}
           </section>
         </>
       )}

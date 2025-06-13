@@ -5,6 +5,7 @@ import add from "../../../assets/icons/add.png";
 import edit from "../../../assets/icons/edit.png";
 import cat from "../../../assets/icons/options-lines.png";
 import "./dbdirection.css";
+import { WordButton } from "../../../components/Buttons/WordButton/WordButton";
 
 export function DBDirection() {
   const navigate = useNavigate();
@@ -57,16 +58,15 @@ export function DBDirection() {
         <img src={cat} />
       </div>
 
-      <button
-        className="word-button green-bg outfit-font"
-        style={{ fontSize: "1.5rem" }}
+      <WordButton
+        text="Logout"
         onClick={() => {
           handleLogout();
           window.scrollTo(0, 0);
         }}
       >
         Logout
-      </button>
+      </WordButton>
     </section>
   );
 }

@@ -35,7 +35,7 @@ function AllBlogs() {
           seriesTitle,
           blogs
             .sort((a, b) => Number(a.part || 0) - Number(b.part || 0))
-            .slice(0, 4),
+            .slice(0, 3),
         ])
       );
 

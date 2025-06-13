@@ -18,6 +18,15 @@
   border-radius: 0.5rem;
   text-decoration: none;
   color: black;
+  transition: all 0.3s;
+
+  background-color: rgb(220, 220, 220);
+}
+
+.db-direction-container:hover {
+  scale: 1.01;
+  background-color: var(--green);
+  filter: drop-shadow(0px 0px 5px white);
 }
 
 .db-direction-container h1 {

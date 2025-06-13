@@ -1,4 +1,5 @@
 import { uploadImageToFirebase } from "../../utils/uploadImage";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { serverTimestamp } from "firebase/firestore";
 import { PostLoader } from "../../components/Loader/PostLoader/PostLoader";
@@ -24,8 +25,8 @@ export function CreateBlog() {
   const [categories, setCategories] = useState([]);
   const [subTitle, setSubTitle] = useState(null);
   const [series, setSeries] = useState(null);
-
   const [part, setPart] = useState(null);
+  const navigate = useNavigate();
 
   const formIconArray = [
     { img: description, type: "Description", label: "Description" },
@@ -181,6 +182,8 @@ export function CreateBlog() {
 
       const blogId = await postBlogToFirestore(blogPayload);
       alert(`Blog created successfully! ID: ${blogId}`);
+      navigate("/");
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error("Error submitting blog:", error);
       alert("Failed to submit blog");
