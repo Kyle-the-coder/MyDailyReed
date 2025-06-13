@@ -7,7 +7,7 @@
   align-items: flex-start;
   position: relative;
   overflow: hidden;
-  padding: 5%;
+  padding: 10px 10px;
   margin-top: -1px;
 }
 
@@ -22,9 +22,8 @@
 
 .hero-main-container h1 {
   z-index: 1;
-  line-height: 1;
   filter: drop-shadow(12px 10px 4px rgba(0, 0, 0, 0.8));
-  font-size: clamp(8rem, 12vw, 12rem);
+  font-size: clamp(8rem, 9vw, 9rem);
 }
 
 @media only screen and (max-width: 600px) {
@@ -40,7 +39,7 @@
   }
 
   .hero-main-container h1 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 
     text-align: center;
     font-size: 7rem;

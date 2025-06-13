@@ -17,6 +17,7 @@ export function BlogsContainer({
   nav,
   blogArray,
   del,
+  line = true,
   series,
 }) {
   const [blogs, setBlogs] = useState([]);
@@ -85,7 +86,7 @@ export function BlogsContainer({
         <div className="info-container">
           <h1 className="outfit-font">{title}</h1>
         </div>
-        <div className="line-blog"></div>
+        {line && <div className="line-blog"></div>}
       </div>
 
       <div

@@ -26,7 +26,7 @@ export function Hero() {
           <h1 className="playfair-font green-text">Daily</h1>
           <h1
             className="playfair-font green-text"
-            style={{ marginBottom: "50px" }}
+            style={{ marginBottom: "10px" }}
           >
             Reed
           </h1>
@@ -40,21 +40,31 @@ export function Hero() {
         </>
       ) : (
         <>
-          <img src={heroBg} /> <h1 className="playfair-font green-text">My</h1>
-          <h1 className="playfair-font green-text">Daily</h1>
-          <h1
-            style={{ marginBottom: "10px" }}
-            className="playfair-font green-text"
-          >
-            Reed
-          </h1>
-          <WordButton
-            text="See Blogs"
-            onClick={() => {
-              navigate("/blogs");
-              window.scrollTo(0, 0);
+          <div
+            style={{
+              height: windowWidth > 1400 ? "90%" : "80%",
+              width: "40%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              zIndex: 3,
+              transition: "all .3s",
+              backgroundColor: "blue",
             }}
-          />
+          >
+            <h1 className="playfair-font green-text">My</h1>
+            <h1 className="playfair-font green-text">Daily</h1>
+            <h1 className="playfair-font green-text">Reed</h1>
+            <WordButton
+              text="See Blogs"
+              onClick={() => {
+                navigate("/blogs");
+                window.scrollTo(0, 0);
+              }}
+            />
+          </div>
+          <img src={heroBg} />
         </>
       )}
     </section>

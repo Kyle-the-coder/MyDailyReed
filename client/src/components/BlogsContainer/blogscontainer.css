@@ -44,11 +44,12 @@
   width: 100%;
   display: grid;
   gap: 40px;
+  justify-content: center;
   cursor: pointer;
 }
 
 .blog-column-container.horizontal {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
 }
 
 .blog-column-container.vertical {

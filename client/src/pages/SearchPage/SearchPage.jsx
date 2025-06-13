@@ -68,57 +68,42 @@ function SearchPage() {
     fetchAndFilterBlogs();
   }, [category]);
 
+  console.log("load", category);
   return (
     <div className="display-column" style={{ padding: "40px 20px" }}>
+      <div className="title-container">
+        <div className="info-container">
+          <h1 className="outfit-font">{`Blogs with category:`}</h1>
+          <h1 className="outfit-font">{` ${category}`}</h1>
+        </div>
+        <div className="line-blog"></div>
+      </div>
+
       {isLoading ? (
-        <>
-          <div className="title-container">
-            <div className="info-container">
-              <h1 className="outfit-font">{`Blogs with category:`}</h1>
-              <h1 className="outfit-font">{` ${category}`}</h1>
-            </div>
-            <div className="line-blog"></div>
-          </div>
-          <div style={{ marginTop: "100px", marginBottom: "100px" }}>
-            <PostLoader />
-          </div>
-        </>
+        <div style={{ marginTop: "100px", marginBottom: "100px" }}>
+          <PostLoader />
+        </div>
+      ) : none ? (
+        <h1
+          className="outfit-font display-column"
+          style={{
+            textAlign: "center",
+            marginTop: "100px",
+            marginBottom: "100px",
+          }}
+        >
+          No blogs were found with that category
+        </h1>
       ) : (
-        <>
-          {none ? (
-            <>
-              <div className="title-container">
-                <div className="info-container">
-                  <h1 className="outfit-font">{`Blogs with category:`}</h1>
-                  <h1 className="outfit-font">{` ${category}`}</h1>
-                </div>
-
-                <div className="line-blog"></div>
-              </div>
-
-              <h1
-                className="outfit-font display-column"
-                style={{
-                  textAlign: "center",
-                  marginTop: "100px",
-                  marginBottom: "100px",
-                }}
-              >
-                No blogs were found with that category
-              </h1>
-            </>
-          ) : (
-            <>
-              <BlogsContainer
-                blogArray={filteredBlogs}
-                nav="singleBlog"
-                title={`Blogs with category: `}
-                subTitle={` ${category}`}
-                maxCount={100}
-              />
-            </>
-          )}
-        </>
+        <div style={{ width: "100%" }}>
+          <BlogsContainer
+            blogArray={filteredBlogs}
+            nav="singleBlog"
+            line={false}
+            subTitle={` ${category}`}
+            maxCount={100}
+          />
+        </div>
       )}
     </div>
   );
