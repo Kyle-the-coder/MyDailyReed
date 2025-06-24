@@ -50,7 +50,6 @@ export function Hero() {
               alignItems: "center",
               zIndex: 3,
               transition: "all .3s",
-              backgroundColor: "blue",
             }}
           >
             <h1 className="playfair-font green-text">My</h1>

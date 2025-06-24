@@ -1,7 +1,7 @@
 import { AboutInfo } from "../../sections/AboutSections/AboutInfo/AboutInfo";
 import { AboutTitle } from "../../sections/AboutSections/AboutTitle/AboutTitle";
 
-function About() {
+export default function About() {
   return (
     <div className="display-column">
       <AboutTitle />
@@ -9,7 +9,3 @@ function About() {
     </div>
   );
 }
-
-export const aboutRoute = {
-  element: About(),
-};

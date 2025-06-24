@@ -2,17 +2,17 @@ import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "./layouts/MainLayout";
 import { ErrorLayout } from "./layouts/ErrorLayout";
 import { landingRoute } from "./pages/Landing/Landing";
-import { aboutRoute } from "./pages/About/About";
+import { aboutRoute } from "./pages/About/aboutRoute";
 import { singleBlogRoute } from "./pages/SingleBlog/SingleBlog";
 import { loginRoute } from "./pages/Login/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
-import { CreateBlog } from "./pages/CreateBlog/CreateBlog";
+import { createBlogRoute } from "./pages/CreateBlog/createBlogRoute";
 import { EditBlog } from "./pages/EditBlog/EditBlog";
 import { EditDirectory } from "./pages/EditDirectory/EditDirectory";
 import { EditCat } from "./pages/EditCat/EditCat";
 import { searchPageRoute } from "./pages/SearchPage/SearchPage";
-import { allBlogsRoute } from "./pages/AllBlogs/AllBlogs";
+import { allBlogsRoute } from "./pages/AllBlogs/allBlogsRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -35,11 +35,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/createBlog",
-        element: (
-          <PrivateRoute>
-            <CreateBlog />
-          </PrivateRoute>
-        ),
+        element: <PrivateRoute>{createBlogRoute.element}</PrivateRoute>,
       },
       {
         path: "/editBlog/:id",

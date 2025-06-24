@@ -13,7 +13,7 @@ import article from "../../assets/icons/formIcons/content-writing.png";
 import redirect from "../../assets/icons/formIcons/shuffle.png";
 import "./createblog.css";
 
-export function CreateBlog() {
+export default function CreateBlog() {
   const [mainImagePreview, setMainImagePreview] = useState(null);
   const [imagePreviews, setImagePreviews] = useState({});
   const [isLoading, setIsLoading] = useState(false);

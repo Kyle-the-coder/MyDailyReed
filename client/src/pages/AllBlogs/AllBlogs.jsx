@@ -9,7 +9,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./allblogs.css";
 import { scrollToSection } from "../../components/SmoothScroll";
 
-function AllBlogs() {
+export default function AllBlogs() {
   const [seriesGroups, setSeriesGroups] = useState({});
   const [isReady, setIsReady] = useState(false);
   const navigate = useNavigate();
@@ -113,7 +113,3 @@ function AllBlogs() {
     </section>
   );
 }
-
-export const allBlogsRoute = {
-  element: <AllBlogs />,
-};
