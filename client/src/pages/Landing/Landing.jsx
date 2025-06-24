@@ -1,7 +1,7 @@
 import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
 import { Hero } from "../../sections/HeroSection/Hero";
 
-function LandingPage() {
+export default function LandingPage() {
   return (
     <div className="display-column">
       {/* Section: */}
@@ -25,7 +25,3 @@ function LandingPage() {
     </div>
   );
 }
-
-export const landingRoute = {
-  element: LandingPage(),
-};

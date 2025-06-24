@@ -1,6 +1,6 @@
 import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
 
-export function EditDirectory() {
+export default function EditDirectory() {
   return (
     <div className="display-column" style={{ padding: "40px 20px" }}>
       <BlogsContainer

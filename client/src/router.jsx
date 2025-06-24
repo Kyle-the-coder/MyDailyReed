@@ -1,18 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "./layouts/MainLayout";
 import { ErrorLayout } from "./layouts/ErrorLayout";
-import { landingRoute } from "./pages/Landing/Landing";
+import { landingRoute } from "./pages/Landing/landingRoute";
 import { aboutRoute } from "./pages/About/aboutRoute";
-import { singleBlogRoute } from "./pages/SingleBlog/SingleBlog";
-import { loginRoute } from "./pages/Login/Login";
+import { singleBlogRoute } from "./pages/SingleBlog/singleBlogRoute";
+import { loginRoute } from "./pages/Login/loginRoute";
 import { PrivateRoute } from "./components/PrivateRoute";
-import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { createBlogRoute } from "./pages/CreateBlog/createBlogRoute";
-import { EditBlog } from "./pages/EditBlog/EditBlog";
-import { EditDirectory } from "./pages/EditDirectory/EditDirectory";
-import { EditCat } from "./pages/EditCat/EditCat";
-import { searchPageRoute } from "./pages/SearchPage/SearchPage";
+import { searchPageRoute } from "./pages/SearchPage/searchPageRoute";
 import { allBlogsRoute } from "./pages/AllBlogs/allBlogsRoute";
+import { dashboardRoute } from "./pages/Dashboard/dashboardRoute";
+import { editBlogRoute } from "./pages/EditBlog/editBlogRoute";
+import { editCatRoute } from "./pages/EditCat/editCatRoute";
+import { editDirectoryRoute } from "./pages/EditDirectory/editDirectoryRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -27,11 +27,7 @@ export const router = createBrowserRouter([
       { path: "/blogs", ...allBlogsRoute },
       {
         path: "/dashboard",
-        element: (
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        ),
+        element: <PrivateRoute>{dashboardRoute.element}</PrivateRoute>,
       },
       {
         path: "/createBlog",
@@ -39,27 +35,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/editBlog/:id",
-        element: (
-          <PrivateRoute>
-            <EditBlog />
-          </PrivateRoute>
-        ),
+        element: <PrivateRoute>{editBlogRoute.element}</PrivateRoute>,
       },
       {
         path: "/editDirectory",
-        element: (
-          <PrivateRoute>
-            <EditDirectory />
-          </PrivateRoute>
-        ),
+        element: <PrivateRoute>{editDirectoryRoute.element}</PrivateRoute>,
       },
       {
         path: "/editCat",
-        element: (
-          <PrivateRoute>
-            <EditCat />
-          </PrivateRoute>
-        ),
+        element: <PrivateRoute>{editCatRoute.element}</PrivateRoute>,
       },
     ],
   },

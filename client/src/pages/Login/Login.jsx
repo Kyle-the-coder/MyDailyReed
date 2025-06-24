@@ -12,7 +12,7 @@ import { auth } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
 
-function Login() {
+export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -267,7 +267,3 @@ function Login() {
     </>
   );
 }
-
-export const loginRoute = {
-  element: <Login />,
-};

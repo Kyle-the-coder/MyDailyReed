@@ -1,4 +1,5 @@
-import { Outlet, useLocation, useNavigation } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
+import { Suspense } from "react";
 import { Nav } from "../components/Nav/Nav";
 import { Footer } from "../components/Footer/Footer";
 import { CommonCat } from "../components/CommonCat/CommonCat";
@@ -10,18 +11,16 @@ export function MainLayout() {
 
   return (
     <div className="main-container">
-      {/* Component */}
+      {/* Nav Bar */}
       <Nav />
-      {state === "loading" ? (
-        <Loader />
-      ) : (
-        <div>
-          <Outlet />
-        </div>
-      )}
-      {/* Component */}
+
+      {/* Suspense for lazy-loaded routes */}
+      <Suspense fallback={<Loader />}>
+        {state === "loading" ? <Loader /> : <Outlet />}
+      </Suspense>
+
+      {/* Shared Components */}
       <CommonCat />
-      {/* Component */}
       <Footer />
     </div>
   );

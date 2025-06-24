@@ -7,7 +7,7 @@ import submit from "../../assets/icons/formIcons/check.png";
 import del from "../../assets/icons/x-button.png";
 import "./editcat.css";
 
-export function EditCat() {
+export default function EditCat() {
   const [preLoadCategories, setPreLoadCategories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(null);

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { DBHero } from "../../sections/Dashboard/DBHero/DBHero";
 import { DBDirection } from "../../sections/Dashboard/DBDirection/DBDirection";
 
-export function Dashboard() {
+export default function Dashboard() {
   return (
     <section className="dashboard-main">
       <DBHero />

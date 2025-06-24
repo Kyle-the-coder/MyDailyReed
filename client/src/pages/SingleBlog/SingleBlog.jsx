@@ -8,7 +8,7 @@ import { Loader } from "../../components/Loader/Loader";
 import { useParams } from "react-router-dom";
 import { getBlogById } from "../../utils/blogApi";
 
-function SingleBlog() {
+export default function SingleBlog() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [blog, setBlog] = useState(null);
   const { id } = useParams();
@@ -114,7 +114,3 @@ function SingleBlog() {
     </section>
   );
 }
-
-export const singleBlogRoute = {
-  element: <SingleBlog />,
-};

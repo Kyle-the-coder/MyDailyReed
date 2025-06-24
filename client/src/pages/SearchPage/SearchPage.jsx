@@ -4,7 +4,7 @@ import { getBlogs } from "../../utils/blogApi";
 import { useParams } from "react-router-dom";
 import { PostLoader } from "../../components/Loader/PostLoader/PostLoader";
 
-function SearchPage() {
+export default function SearchPage() {
   const [blogs, setBlogs] = useState([]);
   const { category } = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -108,7 +108,3 @@ function SearchPage() {
     </div>
   );
 }
-
-export const searchPageRoute = {
-  element: <SearchPage />,
-};

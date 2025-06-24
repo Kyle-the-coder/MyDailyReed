@@ -14,7 +14,7 @@ import image from "../../assets/icons/formIcons/image.png";
 import article from "../../assets/icons/formIcons/content-writing.png";
 import redirect from "../../assets/icons/formIcons/shuffle.png";
 
-export function EditBlog() {
+export default function EditBlog() {
   const { id } = useParams();
 
   const [mainImagePreview, setMainImagePreview] = useState(null);
