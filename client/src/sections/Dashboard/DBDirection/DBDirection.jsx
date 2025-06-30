@@ -4,6 +4,7 @@ import { auth } from "../../../firebaseConfig";
 import add from "../../../assets/icons/add.png";
 import edit from "../../../assets/icons/edit.png";
 import cat from "../../../assets/icons/options-lines.png";
+import email from "../../../assets/icons/mail.png";
 import "./dbdirection.css";
 import { WordButton } from "../../../components/Buttons/WordButton/WordButton";
 
@@ -56,6 +57,17 @@ export function DBDirection() {
       >
         <h1 className="outfit-font">Edit Common Categories</h1>
         <img src={cat} />
+      </div>
+      <div
+        className="db-direction-container green-bg"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/emaillist");
+          window.scrollTo(0, 0);
+        }}
+      >
+        <h1 className="outfit-font">Email List</h1>
+        <img src={email} />
       </div>
 
       <WordButton

@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  padding: 40px 20px;
+  padding: 60px 20px;
   color: white;
   background-color: #181818;
 }
@@ -64,7 +64,7 @@
 }
 
 .footer-icons {
-  width: 100%;
+  width: min(100%, 200px);
   display: flex;
   justify-content: space-between;
   align-items: center;

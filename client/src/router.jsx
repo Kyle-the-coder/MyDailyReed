@@ -13,6 +13,7 @@ import { dashboardRoute } from "./pages/Dashboard/dashboardRoute";
 import { editBlogRoute } from "./pages/EditBlog/editBlogRoute";
 import { editCatRoute } from "./pages/EditCat/editCatRoute";
 import { editDirectoryRoute } from "./pages/EditDirectory/editDirectoryRoute";
+import { emailListRoute } from "./pages/EmailList/emailListRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/editCat",
         element: <PrivateRoute>{editCatRoute.element}</PrivateRoute>,
+      },
+      {
+        path: "/emaillist",
+        element: <PrivateRoute>{emailListRoute.element}</PrivateRoute>,
       },
     ],
   },

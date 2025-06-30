@@ -1,11 +1,18 @@
 import { useState } from "react";
 import "./wordbutton.css";
 
-export function WordButton({ text, fontSize, margin, onClick }) {
+export function WordButton({
+  text,
+  fontSize,
+  margin,
+  onClick,
+  disabled = false,
+}) {
   const [isHover, setIsHover] = useState(false);
   return (
     <button
       className="button-main green-bg outfit-font"
+      disabled={disabled}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       style={{
