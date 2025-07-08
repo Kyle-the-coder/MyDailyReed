@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getBlogs, deleteBlog } from "../../utils/blogApi";
+import { useBlogs } from "../../utils/useBlogs.js";
+import { deleteBlog } from "../../utils/blogApi";
 import { PostLoader } from "../Loader/PostLoader/PostLoader.jsx";
 import articleImg from "../../assets/placeholders/Artc1.png";
 import x from "../../assets/icons/x-button.png";
@@ -15,11 +16,12 @@ export function BlogsContainer({
   trending = false,
   maxCount,
   nav,
-  blogArray,
+  blogArray, // Optional override prop
   del,
   line = true,
   series,
 }) {
+  const blogsFromContext = useBlogs();
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isdel, setIsDel] = useState(false);
@@ -29,45 +31,39 @@ export function BlogsContainer({
   const visibleCount = maxCount ?? 4;
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        setIsLoading(true);
-        const data = await getBlogs();
+    setIsLoading(true);
 
-        let filteredBlogs = data;
+    // Use blogArray prop if passed, else use context data
+    let data = blogArray?.length > 0 ? blogArray : blogsFromContext;
 
-        if (typeof series === "string" && series.trim() !== "") {
-          filteredBlogs = data
-            .filter((blog) => blog.series === series)
-            .sort((a, b) => (a.part ?? 0) - (b.part ?? 0)); // sort by part
-        } else if (trending) {
-          // Sort by likes for trending
-          filteredBlogs = [...data].sort(
-            (a, b) => (b.likes?.length || 0) - (a.likes?.length || 0)
-          );
-        } else {
-          // Default sort by most recent
-          filteredBlogs = [...data].sort(
-            (a, b) =>
-              (b.datePosted?.toDate?.() ?? 0) - (a.datePosted?.toDate?.() ?? 0)
-          );
-        }
-
-        setBlogs(filteredBlogs);
-      } catch (error) {
-        console.error("Failed to fetch blogs:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (blogArray?.length > 0) {
-      setBlogs(blogArray);
+    if (!data || data.length === 0) {
+      setBlogs([]);
       setIsLoading(false);
-    } else {
-      fetchBlogs();
+      return;
     }
-  }, [trending, blogArray, series]);
+
+    let filteredBlogs = data;
+
+    if (typeof series === "string" && series.trim() !== "") {
+      filteredBlogs = data
+        .filter((blog) => blog.series === series)
+        .sort((a, b) => (a.part ?? 0) - (b.part ?? 0)); // sort by part
+    } else if (trending) {
+      // Sort by likes for trending
+      filteredBlogs = [...data].sort(
+        (a, b) => (b.likes?.length || 0) - (a.likes?.length || 0)
+      );
+    } else {
+      // Default sort by most recent
+      filteredBlogs = [...data].sort(
+        (a, b) =>
+          (b.datePosted?.toDate?.() ?? 0) - (a.datePosted?.toDate?.() ?? 0)
+      );
+    }
+
+    setBlogs(filteredBlogs);
+    setIsLoading(false);
+  }, [blogsFromContext, blogArray, series, trending]);
 
   const handleDelete = async () => {
     try {

@@ -1,5 +1,4 @@
 import {
-  getFirestore,
   collection,
   doc,
   addDoc,
@@ -13,7 +12,6 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { initializeApp } from "firebase/app";
 import { db } from "../firebaseConfig";
 
 const auth = getAuth();
