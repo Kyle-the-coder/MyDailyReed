@@ -13,6 +13,7 @@ import description from "../../assets/icons/formIcons/description.png";
 import image from "../../assets/icons/formIcons/image.png";
 import article from "../../assets/icons/formIcons/content-writing.png";
 import redirect from "../../assets/icons/formIcons/shuffle.png";
+import "./editblog.css";
 
 export default function EditBlog() {
   const { id } = useParams();
@@ -341,7 +342,7 @@ export default function EditBlog() {
               <div className="category-container outfit-font">
                 <h1 className="outfit-font">Categories:</h1>
                 {preLoadCategories.map((cat) => (
-                  <div key={cat} className="cat1 silver-bg">
+                  <div key={cat} className="edit-cat1 silver-bg">
                     {cat}
                     <img
                       src={del}
@@ -353,7 +354,10 @@ export default function EditBlog() {
                 {categories.length > 0 && (
                   <>
                     {categories.map((cat) => (
-                      <div key={cat} className="cat1 outfit-font silver-bg">
+                      <div
+                        key={cat}
+                        className="edit-cat1 outfit-font silver-bg"
+                      >
                         {cat}
                         <img
                           src={del}
