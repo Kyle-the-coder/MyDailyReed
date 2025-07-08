@@ -1,45 +1,39 @@
-import react from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { WordButton } from "../../../components/Buttons/WordButton/WordButton";
+import { useBlogs } from "../../../utils/useBlogs";
 import {
-  getBlogById,
   likeBlog,
   removeLikeBlog,
   addCommentToBlog,
 } from "../../../utils/blogApi";
+
 import likeFilled from "../../../assets/icons/likeFilled.png";
 import likeEmpty from "../../../assets/icons/likeEmpty.png";
 import "./social.css";
 
 export function Social() {
   const { id } = useParams();
-  const [blog, setBlog] = useState(null);
+  const blogs = useBlogs();
+  const originalBlog = blogs.find((b) => b.id === id);
+
+  const [blog, setBlog] = useState(originalBlog || null);
   const [isLike, setIsLike] = useState(false);
   const [commentText, setCommentText] = useState("");
 
+  // Keep local state in sync with context blog
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const response = await getBlogById(id);
-        setBlog(response);
-
-        const user = getAuth().currentUser;
-        if (user && response.likes?.includes(user.uid)) {
-          setIsLike(true);
-        }
-      } catch (err) {
-        console.error("Failed to fetch blog:", err);
-      }
-    };
-    fetchBlog();
-  }, [id]);
+    if (originalBlog) {
+      setBlog(originalBlog);
+      const user = getAuth().currentUser;
+      setIsLike(user && originalBlog.likes?.includes(user.uid));
+    }
+  }, [originalBlog]);
 
   const handleLikeToggle = async () => {
-    if (!blog) return;
     const user = getAuth().currentUser;
-    if (!user) return;
+    if (!user || !blog) return;
 
     try {
       if (isLike) {
@@ -48,9 +42,17 @@ export function Social() {
         await likeBlog(id);
       }
 
-      // Refresh the blog data to reflect the latest like state
-      const updatedBlog = await getBlogById(id);
-      setBlog(updatedBlog);
+      // Update local blog like state optimistically
+      setBlog((prev) =>
+        prev
+          ? {
+              ...prev,
+              likes: isLike
+                ? prev.likes.filter((uid) => uid !== user.uid)
+                : [...(prev.likes || []), user.uid],
+            }
+          : null
+      );
       setIsLike(!isLike);
     } catch (err) {
       console.error("Failed to toggle like:", err);
@@ -63,8 +65,19 @@ export function Social() {
     try {
       await addCommentToBlog(id, commentText, "Anonymous");
 
-      const updatedBlog = await getBlogById(id);
-      setBlog(updatedBlog);
+      // Update local blog comment state optimistically
+      setBlog((prev) =>
+        prev
+          ? {
+              ...prev,
+              comments: [
+                ...(prev.comments || []),
+                { comment: commentText, name: "Anonymous" },
+              ],
+            }
+          : null
+      );
+
       setCommentText("");
     } catch (err) {
       console.error("Failed to submit comment:", err);
@@ -123,12 +136,12 @@ export function Social() {
         <h1 className="outfit-font">Comments:</h1>
         <div className="comments silver-bg">
           {blog.comments?.map((comment, idx) => (
-            <react.Fragment key={idx}>
+            <div key={idx}>
               <h1 className="commenter-name outfit-font">
                 {comment.name || "Reader"}:
               </h1>
               <p className="comment outfit-font">{comment.comment}</p>
-            </react.Fragment>
+            </div>
           ))}
         </div>
       </div>

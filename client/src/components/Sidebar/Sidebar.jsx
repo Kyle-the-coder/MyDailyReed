@@ -31,7 +31,7 @@ export function Sidebar({ author, series }) {
           series={series}
           nav="singleBlog"
           title="More in this Series"
-          maxCount={3}
+          maxCount={100}
         />
       )}
 

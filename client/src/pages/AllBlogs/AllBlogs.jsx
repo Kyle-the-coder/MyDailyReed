@@ -1,51 +1,44 @@
-import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { BlogsContainer } from "../../components/BlogsContainer/BlogsContainer";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
-import { db } from "../../firebaseConfig"; // adjust path as needed
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import { useBlogs } from "../../utils/useBlogs";
+import articleImg from "../../assets/placeholders/Artc1.png";
 import "./allblogs.css";
-import { scrollToSection } from "../../components/SmoothScroll";
 
 export default function AllBlogs() {
+  const blogs = useBlogs();
   const [seriesGroups, setSeriesGroups] = useState({});
-  const [isReady, setIsReady] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchBlogs() {
-      const q = query(collection(db, "blogs"));
-      const snapshot = await getDocs(q);
+    if (!blogs || blogs.length === 0) return;
 
-      const rawGroups = {};
+    const rawGroups = {};
 
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        const series = data.series?.trim();
-        if (!series) return;
+    blogs.forEach((data) => {
+      const series = data.series?.trim();
+      if (!series) return;
 
-        if (!rawGroups[series]) rawGroups[series] = [];
-        rawGroups[series].push({ id: doc.id, ...data });
-      });
+      if (!rawGroups[series]) rawGroups[series] = [];
+      rawGroups[series].push(data);
+    });
 
-      const finalGroups = Object.fromEntries(
-        Object.entries(rawGroups).map(([seriesTitle, blogs]) => [
-          seriesTitle,
-          blogs
-            .sort((a, b) => Number(a.part || 0) - Number(b.part || 0))
-            .slice(0, 3),
-        ])
-      );
+    const finalGroups = Object.fromEntries(
+      Object.entries(rawGroups).map(([seriesTitle, blogs]) => [
+        seriesTitle,
+        blogs
+          .sort((a, b) => Number(a.part || 0) - Number(b.part || 0))
+          .slice(0, 3),
+      ])
+    );
 
-      setSeriesGroups(finalGroups);
-      setIsReady(true); // ✅ Only render Carousel once this is true
-    }
+    setSeriesGroups(finalGroups);
+  }, [blogs]);
 
-    fetchBlogs();
-  }, []);
-  console.log(seriesGroups);
+  const isReady = blogs && blogs.length > 0;
+
   return (
     <section className="all-blogs-main">
       <div className="blogs-title-container">
