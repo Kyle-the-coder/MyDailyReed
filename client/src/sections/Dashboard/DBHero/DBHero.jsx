@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import heroBg from "../../../assets/heroImg/dashboardBg.jpg";
-import heroBgPhone from "../../../assets/heroImg/dashboardBgPhone.jpg";
+import heroBg from "../../../assets/heroImg/dashboardBg.webp";
+import heroBgPhone from "../../../assets/heroImg/dashboardBgPhone.webp";
 
 import "./dbhero.css";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import heroBg from "../../assets/heroImg/MDRLogoCup.png";
-import heroBgMobile from "../../assets/heroImg/MDRHeroBgPhone.png";
+import heroBg from "../../assets/heroImg/MDRLogoCup.webp";
+import heroBgMobile from "../../assets/heroImg/MDRHeroBgPhone.webp";
 import "./hero.css";
 import { WordButton } from "../../components/Buttons/WordButton/WordButton";
 import { useNavigate } from "react-router-dom";
