@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useBlogs } from "../../utils/useBlogs.js";
 import { deleteBlog } from "../../utils/blogApi";
 import { PostLoader } from "../Loader/PostLoader/PostLoader.jsx";
-import articleImg from "../../assets/placeholders/Artc1.png";
 import x from "../../assets/icons/x-button.png";
 import "./blogscontainer.css";
 
@@ -107,7 +106,7 @@ export function BlogsContainer({
               }}
             >
               <img
-                src={blog.imgUrl || articleImg}
+                src={blog.imgUrl}
                 alt={blog.title || "Blog image"}
                 style={{ height: height }}
               />
