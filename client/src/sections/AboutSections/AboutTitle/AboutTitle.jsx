@@ -1,5 +1,5 @@
 import "./abouttitle.css";
-import aboutTree from "../../../assets/placeholders/MDRAboutTree.png";
+import aboutTree from "../../../assets/placeholders/MDRAboutTree.webp";
 export function AboutTitle() {
   return (
     <section className="about-title-main-container charcoal-bg">

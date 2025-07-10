@@ -1,4 +1,3 @@
-import placeholder from "../../../assets/placeholders/Artc1.png";
 import { WordButton } from "../../../components/Buttons/WordButton/WordButton";
 import DOMPurify from "dompurify";
 import "./sbtitle.css";
@@ -44,7 +43,7 @@ export function SbTitle({
         </h6>
       )}
 
-      <img src={titleImg || placeholder} alt="Blog banner" />
+      <img src={titleImg} alt="Blog banner" />
 
       <p
         className="sb-title-blerb outfit-thin-font"

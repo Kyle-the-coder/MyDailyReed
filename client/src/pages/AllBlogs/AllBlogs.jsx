@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useBlogs } from "../../utils/useBlogs";
-import articleImg from "../../assets/placeholders/Artc1.png";
 import "./allblogs.css";
 
 export default function AllBlogs() {
@@ -83,10 +82,7 @@ export default function AllBlogs() {
                         window.scrollTo({ top: 0 });
                       }}
                     >
-                      <img
-                        src={blog.imgUrl || articleImg}
-                        alt={blog.title || "Blog image"}
-                      />
+                      <img src={blog.imgUrl} alt={blog.title || "Blog image"} />
                       <p className="playfair-thin-font">{blog.subTitle}</p>
                       <h3>
                         {blog.title || "Untitled"}{" "}
